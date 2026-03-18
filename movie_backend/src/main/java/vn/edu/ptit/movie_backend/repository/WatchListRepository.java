@@ -9,6 +9,8 @@ import vn.edu.ptit.movie_backend.models.Movie;
 import vn.edu.ptit.movie_backend.models.User;
 import vn.edu.ptit.movie_backend.models.WatchList;
 
+import java.util.Optional;
+
 public interface WatchListRepository extends JpaRepository<WatchList,Integer> {
 
     boolean existsByWatchListId(Integer watchListId);
@@ -21,5 +23,7 @@ public interface WatchListRepository extends JpaRepository<WatchList,Integer> {
 
     void deleteByWatchListId(Integer watchListId);
 
-    boolean existsByUser_UserIdAndMovie_MoviesId(Integer userId,Integer movieId);
+    Optional<WatchList> findFirstByUser_UserIdAndMovie_MoviesId(Integer userId, Integer movieId);
+
+    boolean existsByUser_UserIdAndMovie_MoviesId(Integer userId, Integer movieId);
 }

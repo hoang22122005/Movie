@@ -14,7 +14,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import vn.edu.ptit.movie_backend.security.JwtAuthenticationFilter;
+
+import java.util.List;
 
 // @Configuration: Đánh dấu class này là nơi định nghĩa các Bean (đối tượng cấu hình) cho Spring Boot
 @Configuration
@@ -35,6 +40,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                // Kích hoạt cấu hình CORS đã định nghĩa bên dưới
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 // Tắt CSRF (Cross-Site Request Forgery) vì chúng ta dùng JWT (stateless), không
                 // dùng Session/Cookie
                 .csrf(csrf -> csrf.disable())
@@ -43,20 +50,28 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // Quy định quyền truy cập cho từng đường dẫn (Request)
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/public/**").permitAll()
 
-                        .requestMatchers(HttpMethod.POST, "/api/movies/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/api/movies/**").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.DELETE, "/api/movies/**").hasRole("ADMIN")
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/movies/**", "/api/genres/**").permitAll()
-
-                        .requestMatchers("/api/watchlist/**").hasAnyRole("USER", "ADMIN")
-                        // Tất cả các yêu cầu (Request) còn lại bắt buộc phải đăng nhập thành công mới
-                        // được vào
                         .anyRequest().authenticated())
 
-                // Thêm 'JwtAuthenticationFilter' của bạn đứng trước bộ lọc mặc định của Spring
-                // Nó sẽ kiểm tra Token CƯỚC KHI Spring cố gắng xác thực người dùng
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint((request, response, authException) -> {
+                            response.setContentType("application/json;charset=UTF-8");
+                            response.setStatus(401);
+                            response.getWriter().write(
+                                    "{ \"success\": false, \"message\": \"Bạn cần đăng nhập để thực hiện hành động này\", \"data\": null }");
+                        })
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            response.setContentType("application/json;charset=UTF-8");
+                            response.setStatus(403);
+                            response.getWriter().write(
+                                    "{ \"success\": false, \"message\": \"Hành động này bị chặn: Bạn không có quyền truy cập\", \"data\": null }");
+                        }))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         // Trả về đối tượng cấu hình hoàn chỉnh cho Spring Security
@@ -77,5 +92,24 @@ public class SecurityConfig {
         // Sử dụng thuật toán BCrypt (Băm an toàn nhất hiện nay, tự động sinh muối -
         // salt)
         return new BCryptPasswordEncoder();
+    }
+
+    // Cấu hình CORS chi tiết tại đây
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        // Cho phép các nguồn (Origin) cụ thể gọi API (React 3000, Vite 5173)
+        configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:5173"));
+        // Cho phép các phương thức HTTP
+        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        // Cho phép các Header quan trọng (đặc biệt là Authorization cho JWT)
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "Cache-Control"));
+        // Cho phép gửi kèm Credentials (như Cookie nếu cần)
+        configuration.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        // Áp dụng cấu hình này cho tất cả các đường dẫn API
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

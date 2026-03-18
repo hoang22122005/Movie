@@ -7,9 +7,9 @@ import vn.edu.ptit.movie_backend.models.Movie;
 import vn.edu.ptit.movie_backend.dto.WatchListDTO;
 
 public interface WatchListService {
-    WatchListDTO postWatchList(WatchListDTO request);
+    WatchListDTO postWatchList(Integer userId,Integer movieId);
 
     PageResponse<MovieDTO> getSearchWatchList(Integer userid, String movieName, Pageable pageable);
 
-    void deleteWatchList(Integer WatchListId);
+    void deleteWatchList(Integer userId,Integer movieId);
 }

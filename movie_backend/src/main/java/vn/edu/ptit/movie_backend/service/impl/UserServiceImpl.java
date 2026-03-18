@@ -70,6 +70,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
+    public UserDTO updateProfile(Integer userId, UserDTO dto) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy user với id: " + userId));
+
+        user.setAge(dto.getAge());
+        user.setGender(dto.getGender());
+        user.setOccupation(dto.getOccupation());
+        user.setZipCode(dto.getZipCode());
+
+        return toDTO(userRepository.save(user));
+    }
+
+    @Override
     public void deleteUser(Integer id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Khong tim thay User co id la" + id));
@@ -86,6 +100,10 @@ public class UserServiceImpl implements UserService {
         dto.setEmail(user.getEmail());
         dto.setRole(user.getRole());
         dto.setStatus(user.isStatus());
+        dto.setAge(user.getAge());
+        dto.setGender(user.getGender());
+        dto.setOccupation(user.getOccupation());
+        dto.setZipCode(user.getZipCode());
 
         return dto;
     }

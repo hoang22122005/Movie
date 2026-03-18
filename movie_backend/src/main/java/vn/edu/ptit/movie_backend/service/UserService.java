@@ -9,12 +9,13 @@ import vn.edu.ptit.movie_backend.models.User;
 
 public interface UserService {
 
-
     UserDTO getUserById(Integer id);
 
     PageResponse<UserDTO> getSearchUser(String username, String email, Pageable pageable);
 
     UserDTO createUser(RegisterRequest dto);
+
+    UserDTO updateProfile(Integer userId, UserDTO dto);
 
     void deleteUser(Integer id);
 }

@@ -23,10 +23,11 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
     private final MovieRepository movieRepository;
     private final UserRepository userRepository;
+
     @Override
-    public PageResponse<CommentDTO> getSearchComment(Integer movieId,Pageable pageable) {
+    public PageResponse<CommentDTO> getSearchComment(Integer movieId, Pageable pageable) {
         Page<CommentDTO> page;
-        page = commentRepository.getSearchComment(movieId,pageable).map(this::toDTO);
+        page = commentRepository.getSearchComment(movieId, pageable).map(this::toDTO);
         return PageResponse.<CommentDTO>builder()
                 .content(page.getContent())
                 .pageSize(page.getSize())
@@ -37,10 +38,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDTO createComment(CommentDTO dto) {
+    public CommentDTO createComment(CommentDTO dto, Integer userId) {
         Comment comment = new Comment();
-        User user = userRepository.findById(dto.getUserId()).orElseThrow(()->new RuntimeException("Không tìm thấy User có id là "+dto.getUserId() ));
-        Movie movie = movieRepository.findById(dto.getMovieId()).orElseThrow(()->new RuntimeException("Không tìm thấy phim có id là "+dto.getMovieId()));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy User có id là " + userId));
+        Movie movie = movieRepository.findById(dto.getMovieId())
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy phim có id là " + dto.getMovieId()));
 
         comment.setUser(user);
         comment.setMovie(movie);
@@ -49,11 +52,24 @@ public class CommentServiceImpl implements CommentService {
         commentRepository.save(comment);
 
         return toDTO(comment);
-
     }
 
-    private CommentDTO toDTO(Comment u){
-        CommentDTO a = new CommentDTO(u.getCommentId(),u.getUser().getUserId(),u.getMovie().getMoviesId(),u.getContent(),u.getCreatedAt());
+    @Override
+    public void deleteComment(Integer commentId, Integer userId) {
+        Comment comment = commentRepository.findById(commentId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy bình luận có id là " + commentId));
+
+        // Kiểm tra xem bình luận này có phải của người dùng đang đăng nhập không
+        if (comment.getUser().getUserId() != userId) {
+            throw new RuntimeException("Bạn không có quyền xóa bình luận của người khác!");
+        }
+
+        commentRepository.delete(comment);
+    }
+
+    private CommentDTO toDTO(Comment u) {
+        CommentDTO a = new CommentDTO(u.getCommentId(), u.getUser().getUserId(), u.getMovie().getMoviesId(),
+                u.getContent(), u.getCreatedAt());
         return a;
     }
 }

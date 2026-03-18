@@ -71,6 +71,17 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public MovieDTO updateMovie(Integer movieId, MovieDTO dto) {
+        Movie movie = movieRepository.findById(movieId).orElseThrow(()->new RuntimeException("Không tìm thấy movie có id là" + movieId));
+        if(dto.getPosterUrl() != null) movie.setPosterUrl(dto.getPosterUrl());
+        if(dto.getTrailerUrl() != null) movie.setTrailerUrl(dto.getTrailerUrl());
+        if(dto.getDirector() != null) movie.setDirector(dto.getDirector());
+        if(dto.getDuration()!=null) movie.setDuration(dto.getDuration());
+
+        return toDTO(movieRepository.save(movie));
+    }
+
+    @Override
     public List<MovieDTO> getRecommendations(Integer userId) {
         List<Map<String, Object>> recommendedData = recommendationClient.getRecommendations(userId);
         List<MovieDTO> recommendedMovies = new ArrayList<>();

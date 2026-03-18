@@ -26,12 +26,13 @@ public class JwtUtils {
     // Base64URL
     // signature là HMAC_SHA256(header + payload + salt)
     // generateToken: Hàm "đúc" ra một chuỗi JWT khi đăng nhập thành công
-    public String generateToken(String usename) {
+    public String generateToken(String usename, Integer userId) {
         Date now = new Date(); // Thời gian hiện tại
         Date expiryDate = new Date(now.getTime() + jwtEXPIRATION); // Thời gian 7 ngày tới
         return Jwts.builder()
                 .setSubject(usename) // Gắn tên username vào 'bụng' (payload) của Token
                 .setIssuedAt(now) // Gắn ngày cấp phát
+                .claim("userId", userId)
                 .setExpiration(expiryDate) // Gắn ngày hết hạn
                 .signWith(getSignKey(), SignatureAlgorithm.HS256) // "Ký tên" bằng Salt + Thuật toán HS256
                 .compact(); // Đóng gói thành chuỗi Dạng header.payload.signature
@@ -49,6 +50,16 @@ public class JwtUtils {
                 .parseClaimsJws(token)
                 .getBody();
         return claims.getSubject();
+    }
+
+    // Lấy ID người dùng từ Token
+    public Integer getUserIdFromJwt(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSignKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.get("userId", Integer.class);
     }
 
     // validateToken: Kiểm tra xem thẻ VIP (Token) có hợp lệ không

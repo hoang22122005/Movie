@@ -27,14 +27,16 @@ public class AuthController {
     public ResponseEntity<ApiResponse<JwtResponse>> login(@Valid @RequestBody LoginRequest loginRequest) {
         try {
 
-            //Tạo ra yêu cầu xác thực"(UsernamePasswordAuthenticationToken) chứa Username và Password
-            //sẽ gọi đến CustomUserDetailsService.java để xác thực nếu đúng mới cấp token
+            // Tạo ra yêu cầu xác thực"(UsernamePasswordAuthenticationToken) chứa Username
+            // và Password
+            // sẽ gọi đến CustomUserDetailsService.java để xác thực nếu đúng mới cấp token
             // để
             Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
-            );
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
             // 2. Tạo Token
-            String jwt = jwtUtils.generateToken(authentication.getName());
+            vn.edu.ptit.movie_backend.models.User user = (vn.edu.ptit.movie_backend.models.User) authentication
+                    .getPrincipal();
+            String jwt = jwtUtils.generateToken(user.getUsername(), user.getUserId());
 
             // 3. Lấy thông tin quyền (Role) của User
             String role = authentication.getAuthorities().iterator().next().getAuthority();

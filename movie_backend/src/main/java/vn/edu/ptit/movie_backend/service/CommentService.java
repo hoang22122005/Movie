@@ -6,6 +6,9 @@ import vn.edu.ptit.movie_backend.dto.PageResponse;
 import vn.edu.ptit.movie_backend.models.Comment;
 
 public interface CommentService {
-    PageResponse<CommentDTO> getSearchComment(Integer movieId,Pageable pageable);
-    CommentDTO createComment(CommentDTO dto);
+    PageResponse<CommentDTO> getSearchComment(Integer movieId, Pageable pageable);
+
+    CommentDTO createComment(CommentDTO dto, Integer userId);
+
+    void deleteComment(Integer commentId, Integer userId);
 }

@@ -17,5 +17,7 @@ public interface MovieService {
 
     void deleteMovie(Integer id);
 
+    MovieDTO updateMovie(Integer movieId,MovieDTO dto);
+
     List<MovieDTO> getRecommendations(Integer userId);
 }

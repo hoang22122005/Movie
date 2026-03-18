@@ -1,5 +1,6 @@
 package vn.edu.ptit.movie_backend.service.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,14 +28,14 @@ public class WatchListServiceImpl implements WatchListService {
     private final UserRepository userRepository;
 
     @Override
-    public WatchListDTO postWatchList(WatchListDTO request) {
-        User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng với id: " + request.getUserId()));
+    public WatchListDTO postWatchList(Integer userId,Integer movieId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng với id: " + userId));
 
-        Movie movie = movieRepository.findById(request.getMovieId())
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy phim với id: " + request.getMovieId()));
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy phim với id: " + movieId));
 
-        if(watchListRepository.existsByUser_UserIdAndMovie_MoviesId(request.getUserId(), request.getMovieId())) throw new RuntimeException("Phim này đã có trong danh sách");
+        if(watchListRepository.existsByUser_UserIdAndMovie_MoviesId(userId, movieId)) throw new RuntimeException("Phim này đã có trong danh sách");
 
         WatchList watchList = new WatchList();
         watchList.setUser(user);
@@ -71,10 +72,10 @@ public class WatchListServiceImpl implements WatchListService {
     }
 
     @Override
-    public void deleteWatchList(Integer watchListId) {
-        if (!watchListRepository.existsByWatchListId(watchListId))
-            throw new RuntimeException("Không tìm thấy phim có id là " + watchListId);
-        watchListRepository.deleteByWatchListId(watchListId);
+    @Transactional
+    public void deleteWatchList(Integer userId,Integer movieId) {
+        WatchList watchList = watchListRepository.findFirstByUser_UserIdAndMovie_MoviesId(userId,movieId).orElseThrow(()->new RuntimeException("Không tìm thấy phim có id là"+movieId));
+        watchListRepository.deleteByWatchListId(watchList.getWatchListId());
     }
 
     private List<String> getGenreNamesByMovieId(Integer movieId) {
