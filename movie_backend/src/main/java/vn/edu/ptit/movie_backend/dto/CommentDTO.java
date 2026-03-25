@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class CommentDTO {
     private Integer commentId;
     private Integer userId;
+    private String username;
     private Integer movieId;
     private String content;
     private LocalDateTime createdAt;

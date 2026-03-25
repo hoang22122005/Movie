@@ -32,4 +32,10 @@ public class Movie {
 
     private String director;
     private Integer duration;
+
+    @Column(name = "avg_rating")
+    private float avgRating;
+
+    @Column(name = "cnt_rating")
+    private Integer cntRating;
 }

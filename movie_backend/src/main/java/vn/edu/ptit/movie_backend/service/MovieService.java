@@ -20,4 +20,7 @@ public interface MovieService {
     MovieDTO updateMovie(Integer movieId,MovieDTO dto);
 
     List<MovieDTO> getRecommendations(Integer userId);
+
+    PageResponse<MovieDTO> getWatchedList(Integer userId, Pageable pageable);
+
 }

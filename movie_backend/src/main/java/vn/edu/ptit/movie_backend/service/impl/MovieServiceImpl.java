@@ -72,12 +72,18 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieDTO updateMovie(Integer movieId, MovieDTO dto) {
-        Movie movie = movieRepository.findById(movieId).orElseThrow(()->new RuntimeException("Không tìm thấy movie có id là" + movieId));
-        if(dto.getPosterUrl() != null) movie.setPosterUrl(dto.getPosterUrl());
-        if(dto.getTrailerUrl() != null) movie.setTrailerUrl(dto.getTrailerUrl());
-        if(dto.getDirector() != null) movie.setDirector(dto.getDirector());
-        if(dto.getDuration()!=null) movie.setDuration(dto.getDuration());
-
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy movie có id là" + movieId));
+        if (dto.getPosterUrl() != null)
+            movie.setPosterUrl(dto.getPosterUrl());
+        if (dto.getTrailerUrl() != null)
+            movie.setTrailerUrl(dto.getTrailerUrl());
+        if (dto.getDirector() != null)
+            movie.setDirector(dto.getDirector());
+        if (dto.getDuration() != null)
+            movie.setDuration(dto.getDuration());
+        if (dto.getDescription() != null)
+            movie.setDescription(dto.getDescription());
         return toDTO(movieRepository.save(movie));
     }
 
@@ -100,6 +106,18 @@ public class MovieServiceImpl implements MovieService {
             }
         }
         return recommendedMovies;
+    }
+    @Override
+    public PageResponse<MovieDTO> getWatchedList(Integer userId, Pageable pageable) {
+        Page<MovieDTO> page = movieRepository.findWatchedList(userId, pageable).map(this::toDTO);
+
+        return PageResponse.<MovieDTO>builder()
+                .content(page.getContent())
+                .pageSize(page.getSize())
+                .pageNumber(page.getNumber())
+                .totalElements(page.getTotalElements())
+                .totalPages(page.getTotalPages())
+                .build();
     }
 
     @Override
@@ -167,6 +185,10 @@ public class MovieServiceImpl implements MovieService {
         dto.setViewCount(movie.getViewCount());
         dto.setDirector(movie.getDirector());
         dto.setDuration(movie.getDuration());
+        dto.setTrailerUrl(movie.getTrailerUrl());
+        dto.setDescription(movie.getDescription());
+        dto.setAvgRating(movie.getAvgRating());
+        dto.setCntRating(movie.getCntRating());
 
         dto.setGenres(getGenreNamesByMovieId(movie.getMoviesId()));
         return dto;

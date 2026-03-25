@@ -1,5 +1,6 @@
 package vn.edu.ptit.movie_backend.dto;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,4 +23,6 @@ public class MovieDTO {
     private List<Integer> genresId;
     private List<String> genres;
     private Double predictedRating;
+    private float avgRating;
+    private Integer cntRating;
 }

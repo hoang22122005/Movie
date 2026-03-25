@@ -95,6 +95,8 @@ public class WatchListServiceImpl implements WatchListService {
         dto.setViewCount(movie.getViewCount());
         dto.setDirector(movie.getDirector());
         dto.setDuration(movie.getDuration());
+        dto.setAvgRating(movie.getAvgRating());
+        dto.setCntRating(movie.getCntRating());
 
         dto.setGenres(getGenreNamesByMovieId(movie.getMoviesId()));
         return dto;

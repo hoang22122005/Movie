@@ -79,15 +79,33 @@ public class UserServiceImpl implements UserService {
         user.setGender(dto.getGender());
         user.setOccupation(dto.getOccupation());
         user.setZipCode(dto.getZipCode());
+        user.setEmail(dto.getEmail());
 
         return toDTO(userRepository.save(user));
     }
 
     @Override
+    @Transactional
     public void deleteUser(Integer id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Khong tim thay User co id la" + id));
-        userRepository.delete(user);
+        user.setStatus(false);
+        userRepository.save(user);
+    }
+
+    @Override
+    @Transactional
+    public void changePassword(Integer userId, String newPassword, String oldPassword) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy user với id: " + userId));
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new RuntimeException("Mật khẩu cũ không chính xác");
+        }
+        if (passwordEncoder.matches(newPassword, user.getPassword())) {
+            throw new RuntimeException("Mật khẩu mới không được trùng với mật khẩu cũ");
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
     }
 
     private UserDTO toDTO(User user) {

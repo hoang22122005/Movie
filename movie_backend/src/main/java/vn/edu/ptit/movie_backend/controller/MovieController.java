@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import vn.edu.ptit.movie_backend.dto.ApiResponse;
 import vn.edu.ptit.movie_backend.dto.MovieDTO;
 import vn.edu.ptit.movie_backend.dto.PageResponse;
+import vn.edu.ptit.movie_backend.models.User;
 import vn.edu.ptit.movie_backend.service.MovieService;
 
 import java.util.List;
@@ -38,11 +39,20 @@ public class MovieController {
     }
 
     @GetMapping("/movies/recommendations")
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<List<MovieDTO>>> getRecommendations(
             @AuthenticationPrincipal UserDetails userDetails) {
         vn.edu.ptit.movie_backend.models.User user = (vn.edu.ptit.movie_backend.models.User) userDetails;
         List<MovieDTO> result = movieService.getRecommendations(user.getUserId());
         return ResponseEntity.ok(new ApiResponse<>(true, "Lấy danh sách gợi ý phim thành công", result));
+    }
+
+    @GetMapping("movies/watched-list")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<PageResponse<MovieDTO>>> getWatcheListed(
+            @AuthenticationPrincipal UserDetails userDetails, Pageable pageable) {
+        User user = (User) userDetails;
+        return ResponseEntity.ok(new ApiResponse<>(true, "Lấy thành công danh sách phim đã xem",
+                movieService.getWatchedList(user.getUserId(), pageable)));
     }
 }

@@ -35,23 +35,22 @@ public class AdminController {
                         userService.getSearchUser(username, email, pageable)));
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserDTO> getById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    @PostMapping("/user")
+    @PostMapping("/movies")
     public ResponseEntity<ApiResponse<MovieDTO>> createMovie(@RequestBody @Valid MovieDTO dto) {
         MovieDTO result = movieService.createMovie(dto, dto.getGenresId());
         return ResponseEntity.ok(new ApiResponse<>(true, "Thêm phim mới thành công", result));
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/users/{id}")
     public ResponseEntity<String> deleleUser(@PathVariable("id") Integer id) {
         userService.deleteUser(id);
         return ResponseEntity.ok("Delete success");
     }
-
 
     @DeleteMapping("/movies/{id}")
     public ResponseEntity<ApiResponse<String>> deleteMovie(@PathVariable("id") Integer id) {
@@ -60,7 +59,9 @@ public class AdminController {
     }
 
     @PutMapping("/movies/{movieId}")
-    public ResponseEntity<ApiResponse<MovieDTO>> updateMovie(@PathVariable Integer movieId,@RequestBody MovieDTO dto){
-        return ResponseEntity.ok(new ApiResponse<>(true,"Cập nhật phim thành công",movieService.updateMovie(movieId,dto)));
+    public ResponseEntity<ApiResponse<MovieDTO>> updateMovie(@PathVariable(value = "movieId") Integer movieId,
+            @RequestBody MovieDTO dto) {
+        return ResponseEntity
+                .ok(new ApiResponse<>(true, "Cập nhật phim thành công", movieService.updateMovie(movieId, dto)));
     }
 }

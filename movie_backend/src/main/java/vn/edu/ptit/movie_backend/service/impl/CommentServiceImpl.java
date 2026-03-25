@@ -55,6 +55,21 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public CommentDTO updateComment(CommentDTO dto, Integer userId) {
+        Comment comment = commentRepository.findById(dto.getCommentId())
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy bình luận có id là " + dto.getCommentId()));
+
+        if (comment.getUser().getUserId() != userId) {
+            throw new RuntimeException("Bạn không có quyền chỉnh sửa bình luận của người khác!");
+        }
+
+        comment.setContent(dto.getContent());
+        commentRepository.save(comment);
+
+        return toDTO(comment);
+    }
+
+    @Override
     public void deleteComment(Integer commentId, Integer userId) {
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy bình luận có id là " + commentId));
@@ -68,8 +83,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     private CommentDTO toDTO(Comment u) {
-        CommentDTO a = new CommentDTO(u.getCommentId(), u.getUser().getUserId(), u.getMovie().getMoviesId(),
-                u.getContent(), u.getCreatedAt());
-        return a;
+        return new CommentDTO(
+                u.getCommentId(),
+                u.getUser().getUserId(),
+                u.getUser().getUsername(),
+                u.getMovie().getMoviesId(),
+                u.getContent(),
+                u.getCreatedAt());
     }
 }

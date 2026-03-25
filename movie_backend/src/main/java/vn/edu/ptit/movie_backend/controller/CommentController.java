@@ -26,7 +26,7 @@ public class CommentController {
                 commentService.getSearchComment(movieId, pageable)));
     }
 
-    @PostMapping("/user/comments")
+    @PostMapping("/users/comments")
     public ResponseEntity<ApiResponse<CommentDTO>> createComment(
             @AuthenticationPrincipal UserDetails userDetails,
             @RequestBody CommentDTO dto) {
@@ -35,7 +35,16 @@ public class CommentController {
         return ResponseEntity.ok(new ApiResponse<>(true, "Đã thêm bình luận thành công", result));
     }
 
-    @DeleteMapping("/user/comments/{commentId}")
+    @PutMapping("/users/comments")
+    public ResponseEntity<ApiResponse<CommentDTO>> updateComment(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @RequestBody CommentDTO dto) {
+        User user = (User) userDetails;
+        CommentDTO result = commentService.updateComment(dto, user.getUserId());
+        return ResponseEntity.ok(new ApiResponse<>(true, "Đã chỉnh sửa bình luận thành công", result));
+    }
+
+    @DeleteMapping("/users/comments/{commentId}")
     public ResponseEntity<ApiResponse<String>> deleteComment(
             @AuthenticationPrincipal UserDetails userDetails,
             @PathVariable Integer commentId) {
