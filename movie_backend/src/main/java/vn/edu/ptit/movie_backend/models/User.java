@@ -32,6 +32,7 @@ public class User implements UserDetails {
     private String email;
     private String role;
     private boolean status;
+    private String urlAvt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

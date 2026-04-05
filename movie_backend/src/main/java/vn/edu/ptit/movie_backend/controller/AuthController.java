@@ -29,11 +29,13 @@ public class AuthController {
 
             // Tạo ra yêu cầu xác thực"(UsernamePasswordAuthenticationToken) chứa Username
             // và Password
-            // sẽ gọi đến CustomUserDetailsService.java để xác thực nếu đúng mới cấp token
-            // để
+            // sẽ gọi đến CustomUserDetailsService.java để xác thực ở đấy là lấy thông tin
+            // user bằng email hoặc username và so sánh với password nếu đúng mới cấp token
+            // tự gọi loadUserByUsername
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
             // 2. Tạo Token
+            // ép kiểu thành User để lấy thông tin user
             vn.edu.ptit.movie_backend.models.User user = (vn.edu.ptit.movie_backend.models.User) authentication
                     .getPrincipal();
             String jwt = jwtUtils.generateToken(user.getUsername(), user.getUserId());
@@ -44,9 +46,23 @@ public class AuthController {
             JwtResponse response = new JwtResponse(jwt, authentication.getName(), role);
 
             return ResponseEntity.ok(new ApiResponse<>(true, "Đăng nhập thành công", response));
-        } catch (BadCredentialsException e) {
+            // xử lí user kh tồn tại
+        } catch (org.springframework.security.authentication.BadCredentialsException e) {
             return ResponseEntity.status(401)
                     .body(new ApiResponse<>(false, "Tài khoản hoặc mật khẩu không chính xác", null));
+            // xử lí user bị khoá hoặc bị xoá bắt buộc phải override user có isStatus thì nó
+            // mưới bắt lỗi này
+        } catch (org.springframework.security.authentication.DisabledException e) {
+            return ResponseEntity.status(401)
+                    .body(new ApiResponse<>(false, "Tài khoản của bạn đã bị khoá hoặc bị xoá", null));
+            // xử lí các lỗi khác
+        } catch (org.springframework.security.core.AuthenticationException e) {
+            return ResponseEntity.status(401)
+                    .body(new ApiResponse<>(false, e.getMessage(), null));
+            // lỗi hệ thống
+        } catch (Exception e) {
+            return ResponseEntity.status(500)
+                    .body(new ApiResponse<>(false, "Hệ thống xảy ra lỗi xác thực: " + e.getMessage(), null));
         }
     }
 }

@@ -122,6 +122,7 @@ public class UserServiceImpl implements UserService {
         dto.setGender(user.getGender());
         dto.setOccupation(user.getOccupation());
         dto.setZipCode(user.getZipCode());
+        dto.setUrlAvt(user.getUrlAvt());
 
         return dto;
     }

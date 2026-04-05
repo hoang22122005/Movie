@@ -19,5 +19,5 @@ public class UserDTO {
     private String gender;
     private String occupation;
     private String zipCode;
-
+    private String urlAvt;
 }

@@ -13,7 +13,6 @@ spring:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
     hibernate:
-      # Tự động tạo bảng nếu chưa có
       ddl-auto: validate
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -26,8 +25,6 @@ spring:
 flask:
   api:
     url: http://localhost:5000
-
-# Cấu hình Swagger UI (SpringDoc OpenAPI)
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
