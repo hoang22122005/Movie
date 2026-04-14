@@ -1,7 +1,25 @@
-// src/features/auth/components/AuthForm.tsx
+declare global {
+    interface Window {
+        google: any;
+    }
+}
+
+import { useEffect, useRef } from "react";
 import { useAuthForm } from "../hooks/useAuthForm";
+import { useToast } from "../../../context/ToastContext";
+import { useGoogleLogin } from "../hooks/useAuth";
+
+// !!! USER: Replace this with your Actual Google Client ID from Google Cloud Console !!!
+const GOOGLE_CLIENT_ID = "236061701239-b4kr09c84j1qdhkakprucvcr28cblaje.apps.googleusercontent.com";
 
 export default function AuthForm() {
+    const { toast } = useToast();
+    const googleBtnRef = useRef<HTMLDivElement>(null);
+    const {
+        mutate: googleLogin,
+        isPending: isGoogleSubmitting
+    } = useGoogleLogin();
+
     const {
         isLogin,
         formData,
@@ -12,6 +30,37 @@ export default function AuthForm() {
         handleSubmit,
         toggleMode,
     } = useAuthForm();
+
+    useEffect(() => {
+        const initializeGoogle = () => {
+            if (window.google && googleBtnRef.current) {
+                window.google.accounts.id.initialize({
+                    client_id: GOOGLE_CLIENT_ID,
+                    callback: (response: any) => {
+                        toast("Google verification successful. Entering cinema...", "success");
+                        googleLogin(response.credential);
+                    },
+                });
+
+                window.google.accounts.id.renderButton(googleBtnRef.current, {
+                    theme: "filled_black",
+                    size: "large",
+                    shape: "pill",
+                    width: googleBtnRef.current.offsetWidth,
+                });
+            }
+        };
+
+        // Retry if script not loaded yet
+        const interval = setInterval(() => {
+            if (window.google) {
+                initializeGoogle();
+                clearInterval(interval);
+            }
+        }, 500);
+
+        return () => clearInterval(interval);
+    }, [googleLogin, toast]);
 
     return (
         <div className="glass-card p-10 rounded-2xl relative overflow-hidden">
@@ -95,11 +144,18 @@ export default function AuthForm() {
 
                 <button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || isGoogleSubmitting}
                     className="w-full py-4 rounded-xl glossy-gradient text-surface font-black uppercase tracking-widest text-sm hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-lg shadow-primary/20 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
                 >
-                    {isSubmitting ? "Processing..." : isLogin ? "Enter Cinema" : "Initialize Account"}
+                    {isSubmitting || isGoogleSubmitting ? "Processing..." : isLogin ? "Enter Cinema" : "Initialize Account"}
                 </button>
+
+                <div className="relative my-8">
+                    <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/5"></div></div>
+                    <div className="relative flex justify-center text-[10px] font-bold uppercase tracking-widest"><span className="bg-surface px-4 text-outline/50">OR CONTINUE WITH</span></div>
+                </div>
+
+                <div className="w-full flex justify-center" ref={googleBtnRef}></div>
             </form>
 
             <div className="mt-8 pt-6 border-t border-white/5 text-center">

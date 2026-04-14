@@ -17,10 +17,11 @@ public interface MovieService {
 
     void deleteMovie(Integer id);
 
-    MovieDTO updateMovie(Integer movieId,MovieDTO dto);
+    MovieDTO updateMovie(Integer movieId, MovieDTO dto);
 
     List<MovieDTO> getRecommendations(Integer userId);
 
     PageResponse<MovieDTO> getWatchedList(Integer userId, Pageable pageable);
 
+    void incrementViewCount(Integer movieId);
 }

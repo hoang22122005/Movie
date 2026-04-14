@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, Star, Clock, Calendar, Send, Loader2, Edit2, Trash2 } from "lucide-react";
+import { ArrowLeft, Star, Clock, Calendar, Send, Loader2, Edit2, Trash2, Crown, Lock } from "lucide-react";
 import { useMovieDetail, useMovieComments } from "../features/movies/hooks/useMovieDetail";
-import { useCommentActions } from "../features/movies/hooks/useMovieActions";
+import { useCommentActions, useRateMovie, useViewCounter } from "../features/movies/hooks/useMovieActions";
 import { useRecommendations } from "../features/movies/hooks/useMovies";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
@@ -16,17 +16,22 @@ export default function WatchPage() {
     const [newComment, setNewComment] = useState("");
     const [editingId, setEditingId] = useState<number | null>(null);
     const [editContent, setEditContent] = useState("");
+    const [userRating, setUserRating] = useState(0);
 
     const { data: movie, isLoading, error } = useMovieDetail(movieId || "");
-
     const { data: commentsData, isLoading: isCommentsLoading } = useMovieComments(movieId || "");
-    const comments = commentsData?.content || [];
-
     const { postCommentMutation, updateCommentMutation, deleteCommentMutation } = useCommentActions(movieId || "");
+    const { mutate: rateMovie } = useRateMovie(movieId || "");
+    const { mutate: incrementView } = useViewCounter();
+    const { data: recommendations } = useRecommendations();
 
     const isAddingComment = postCommentMutation.isPending;
 
-    const { data: recommendations } = useRecommendations();
+    useEffect(() => {
+        if (movieId) {
+            incrementView(movieId);
+        }
+    }, [movieId, incrementView]);
 
     const handleSendComment = async () => {
         if (!newComment.trim()) return;
@@ -39,15 +44,12 @@ export default function WatchPage() {
         }
     };
 
-    const handleSaveEdit = async (id: number) => {
-        if (!editContent.trim()) return;
-        try {
-            await updateCommentMutation.mutateAsync({ commentId: id, content: editContent, movieId: Number(movieId) });
-            setEditingId(null);
-            toast("Comment updated!", "success");
-        } catch (err) {
-            toast("Failed to update", "error");
-        }
+    const handleRate = (value: number) => {
+        setUserRating(value);
+        rateMovie(value, {
+            onSuccess: () => toast("Rating updated!", "success"),
+            onError: () => toast("Failed to rate", "error")
+        });
     };
 
     if (isLoading) {
@@ -70,12 +72,36 @@ export default function WatchPage() {
         );
     }
 
+    // VIP Protection - only for VIP-flagged movies
+    if (movie.isVip && !user?.isVip) {
+        return (
+            <div className="min-h-screen bg-black flex flex-col items-center justify-center p-8 text-center">
+                <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-8 border border-primary/20">
+                    <Lock className="text-primary" size={40} />
+                </div>
+                <h2 className="text-4xl font-black text-white mb-4 uppercase italic tracking-tighter">VIP Access Required</h2>
+                <p className="text-neutral-400 max-w-md mb-10">This cinematic masterpiece is reserved for our VIP members. Upgrade now to unlock the full library.</p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <button
+                        onClick={() => navigate("/vip-upgrade")}
+                        className="px-10 py-4 glossy-gradient text-black font-black rounded-2xl uppercase tracking-widest text-sm flex items-center gap-2"
+                    >
+                        <Crown size={18} /> Upgrade to VIP
+                    </button>
+                    <button onClick={() => navigate(-1)} className="px-10 py-4 bg-white/5 text-white border border-white/10 font-black rounded-2xl uppercase tracking-widest text-sm">Maybe Later</button>
+                </div>
+            </div>
+        );
+    }
+
     const getEmbedUrl = (url: string) => {
         if (!url) return "";
         if (url.includes("youtube.com/watch?v=")) return url.replace("watch?v=", "embed/");
         if (url.includes("youtu.be/")) return url.replace("youtu.be/", "youtube.com/embed/");
         return url;
     };
+
+    const comments = commentsData?.content || [];
 
     return (
         <div className="min-h-screen bg-surface overflow-x-hidden">
@@ -99,9 +125,26 @@ export default function WatchPage() {
                     <div className="lg:col-span-2">
                         <div className="flex flex-wrap items-center gap-4 mb-6 text-neutral-400 text-xs font-bold uppercase tracking-widest">
                             <span className="px-3 py-1 bg-primary text-primary-dark text-[10px] rounded-full">UHD 4K</span>
-                            <div className="flex items-center gap-1"><Star size={14} className="text-yellow-500 fill-yellow-500" /> 8.9</div>
+                            <div className="flex items-center gap-1"><Star size={14} className="text-yellow-500 fill-yellow-500" /> {movie.avgRating?.toFixed(1) || "0.0"}</div>
                             <div className="flex items-center gap-1"><Clock size={14} /> {movie.duration}m</div>
                             <div className="flex items-center gap-1"><Calendar size={14} /> {movie.releaseDate?.split('-')[0]}</div>
+                            <div className="ml-auto flex items-center gap-2 text-primary">
+                                <span className="opacity-50">BY AUDIENCE:</span>
+                                <div className="flex gap-1">
+                                    {[1, 2, 3, 4, 5].map((star) => (
+                                        <button
+                                            key={star}
+                                            onClick={() => handleRate(star)}
+                                            className="transition-transform hover:scale-125 focus:outline-none"
+                                        >
+                                            <Star
+                                                size={18}
+                                                className={`transition-colors ${star <= (userRating || Math.round(movie.avgRating)) ? "text-yellow-500 fill-yellow-500" : "text-white/20"}`}
+                                            />
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
 
                         <h1 className="text-5xl md:text-7xl font-black italic tracking-tighter text-white uppercase mb-12 leading-[0.9]">
@@ -113,7 +156,7 @@ export default function WatchPage() {
                         </div>
 
                         <div className="border-t border-white/5 pt-12">
-                            <h3 className="text-2xl font-black text-white uppercase tracking-tighter italic mb-10">Audience Reactions</h3>
+                            <h3 className="text-2xl font-black text-white uppercase tracking-tighter italic mb-10">Audience Reactions ({movie.viewCount || 0} views)</h3>
 
                             {/* Input Field */}
                             <div className="relative mb-12">
@@ -170,7 +213,16 @@ export default function WatchPage() {
                                                         />
                                                         <div className="flex justify-end gap-3">
                                                             <button onClick={() => setEditingId(null)} className="text-xs text-neutral-500 hover:text-white uppercase font-black">Cancel</button>
-                                                            <button onClick={() => handleSaveEdit(c.commentId)} className="bg-primary text-black px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest">Update</button>
+                                                            <button onClick={async () => {
+                                                                if (!editContent.trim()) return;
+                                                                try {
+                                                                    await updateCommentMutation.mutateAsync({ commentId: c.commentId, content: editContent, movieId: Number(movieId) });
+                                                                    setEditingId(null);
+                                                                    toast("Comment updated!", "success");
+                                                                } catch (err) {
+                                                                    toast("Failed to update", "error");
+                                                                }
+                                                            }} className="bg-primary text-black px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest">Update</button>
                                                         </div>
                                                     </div>
                                                 ) : (

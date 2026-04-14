@@ -5,7 +5,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.model_selection import train_test_split
 from sentence_transformers import SentenceTransformer
 
-DB_URL = "mssql+pyodbc://Web:123456@localhost:1433/Movie?driver=ODBC+Driver+17+for+SQL+Server"
+DB_URL = "postgresql+psycopg2://postgres:E,!kA%40x65J?377f@db.matjcxyattaokehxibbk.supabase.co:5432/postgres"
 
 # --- TRONG SO CO DINH ---
 FIXED_ALPHA = 0.7  # 70% CF, 30% CB
@@ -16,11 +16,11 @@ BETA_DATE = 0.1   # Độ tương tự Thời gian phát hành (Recency Decay)
 
 def load_data():
     engine = create_engine(DB_URL)
-    movies_df  = pd.read_sql("SELECT movie_id, title, description, director, release_date FROM MOVIES", engine)
-    ratings_df = pd.read_sql("SELECT user_id, movie_id, rating_value FROM RATINGS", engine)
+    movies_df  = pd.read_sql('SELECT movie_id, title, description, director, release_date FROM "movies"', engine)
+    ratings_df = pd.read_sql('SELECT user_id, movie_id, rating_value FROM "ratings"', engine)
     genres_df  = pd.read_sql("""
-        SELECT mg.movie_id, g.genre_name FROM MOVIE_GENRES mg
-        JOIN GENRES g ON mg.genre_id = g.genre_id
+        SELECT mg.movie_id, g.genre_name FROM "movie_genres" mg
+        JOIN "genres" g ON mg.genre_id = g.genre_id
     """, engine)
     return movies_df, ratings_df, genres_df
 

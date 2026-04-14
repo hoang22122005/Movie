@@ -50,5 +50,11 @@ export const movieService = {
         api.get<ApiResponse<MovieResponse[]>>("/movies/recommendations"),
 
     getWatchedList: (params: { page: number; size: number }) =>
-        api.get<ApiResponse<PageResponse<MovieResponse>>>("/movies/watched-list", { params })
+        api.get<ApiResponse<PageResponse<MovieResponse>>>("/movies/watched-list", { params }),
+
+    incrementViewCount: (movieId: number | string) =>
+        api.post<ApiResponse<void>>(`/public/movies/${movieId}/view`),
+
+    rateMovie: (data: { movieId: number; ratingValue: number }) =>
+        api.post<ApiResponse<any>>(`/rating`, data)
 };

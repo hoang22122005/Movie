@@ -48,3 +48,20 @@ export const useWatchlistActions = () => {
 
     return { addToWatchlistMutation, removeFromWatchlistMutation };
 };
+
+export const useRateMovie = (movieId: number | string) => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (ratingValue: number) =>
+            movieService.rateMovie({ movieId: Number(movieId), ratingValue }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["movie", movieId] });
+        },
+    });
+};
+
+export const useViewCounter = () => {
+    return useMutation({
+        mutationFn: (movieId: number | string) => movieService.incrementViewCount(movieId),
+    });
+};

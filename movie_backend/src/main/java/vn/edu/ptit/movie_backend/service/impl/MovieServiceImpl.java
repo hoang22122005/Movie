@@ -107,6 +107,7 @@ public class MovieServiceImpl implements MovieService {
         }
         return recommendedMovies;
     }
+
     @Override
     public PageResponse<MovieDTO> getWatchedList(Integer userId, Pageable pageable) {
         Page<MovieDTO> page = movieRepository.findWatchedList(userId, pageable).map(this::toDTO);
@@ -118,6 +119,14 @@ public class MovieServiceImpl implements MovieService {
                 .totalElements(page.getTotalElements())
                 .totalPages(page.getTotalPages())
                 .build();
+    }
+
+    @Override
+    public void incrementViewCount(Integer movieId) {
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy movie có id là " + movieId));
+        movie.setViewCount((movie.getViewCount() == null ? 0 : movie.getViewCount()) + 1);
+        movieRepository.save(movie);
     }
 
     @Override
@@ -140,6 +149,7 @@ public class MovieServiceImpl implements MovieService {
         movie.setDirector(dto.getDirector());
         movie.setDuration(dto.getDuration());
         movie.setViewCount(0);
+        movie.setVip(dto.isVip());
 
         movieRepository.save(movie);
         saveGenre(movie, genreId);
@@ -189,6 +199,7 @@ public class MovieServiceImpl implements MovieService {
         dto.setDescription(movie.getDescription());
         dto.setAvgRating(movie.getAvgRating());
         dto.setCntRating(movie.getCntRating());
+        dto.setVip(movie.isVip());
 
         dto.setGenres(getGenreNamesByMovieId(movie.getMoviesId()));
         return dto;

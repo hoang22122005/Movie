@@ -23,6 +23,7 @@ export const useAdminMovies = () => {
             return res.data.data;
         },
         onSuccess: () => {
+            //theo dõi dữ liệu khi movies thay đổi sẽ tự động update
             queryClient.invalidateQueries({ queryKey: ["movies"] });
         },
     });

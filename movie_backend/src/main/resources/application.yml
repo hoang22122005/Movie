@@ -7,20 +7,17 @@ spring:
   application:
     name: Movie-backend
   datasource:
-    url: jdbc:sqlserver://localhost:1433;databaseName=Movie;encrypt=true;trustServerCertificate=true
-    username: Web
-    password: 123456
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:postgresql://db.matjcxyattaokehxibbk.supabase.co:5432/postgres
+    username: postgres
+    password: E,!kA@x65J?377f
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: validate
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.SQLServerDialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   
 flask:
   api:
@@ -32,3 +29,9 @@ springdoc:
   api-docs:
     path: /v3/api-docs
     enabled: true
+
+vnpay:
+  vnp_TmnCode: "I7X8N6N3"
+  vnp_HashSecret: "W7X9S0T3H5K2L1M4N8P9"
+  vnp_Url: "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html"
+  vnp_ReturnUrl: "http://localhost:5173/payment-callback"

@@ -1,12 +1,7 @@
 movie_id,title
-1,Toy Story (1995)
-2,GoldenEye (1995)
-3,Four Rooms (1995)
 4,Get Shorty (1995)
 5,Copycat (1995)
 6,Shanghai Triad (Yao a yao yao dao waipo qiao) (1995)
-7,Twelve Monkeys (1995)
-8,Babe (1995)
 9,Dead Man Walking (1995)
 10,Richard III (1995)
 11,Seven (Se7en) (1995)
@@ -14,6 +9,8 @@ movie_id,title
 13,Mighty Aphrodite (1995)
 14,"Postino, Il (1994)"
 15,Mr. Holland's Opus (1995)
+3,Four Rooms (1995)
+8,Babe (1995)
 16,French Twist (Gazon maudit) (1995)
 17,From Dusk Till Dawn (1996)
 18,"White Balloon, The (1995)"
@@ -29,7 +26,9 @@ movie_id,title
 28,Apollo 13 (1995)
 29,Batman Forever (1995)
 30,Belle de jour (1967)
+62,Stargate (1994)
 31,Crimson Tide (1995)
+47,Ed Wood (1994)
 32,Crumb (1994)
 33,Desperado (1995)
 34,"Doom Generation, The (1995)"
@@ -45,7 +44,6 @@ movie_id,title
 44,Dolores Claiborne (1994)
 45,Eat Drink Man Woman (1994)
 46,Exotica (1994)
-47,Ed Wood (1994)
 48,Hoop Dreams (1994)
 49,I.Q. (1994)
 50,Star Wars (1977)
@@ -60,7 +58,6 @@ movie_id,title
 59,Three Colors: Red (1994)
 60,Three Colors: Blue (1993)
 61,Three Colors: White (1994)
-62,Stargate (1994)
 63,"Santa Clause, The (1994)"
 64,"Shawshank Redemption, The (1994)"
 65,What's Eating Gilbert Grape (1993)
@@ -94,8 +91,10 @@ movie_id,title
 93,Welcome to the Dollhouse (1995)
 94,Home Alone (1990)
 95,Aladdin (1992)
+111,"Truth About Cats & Dogs, The (1996)"
 96,Terminator 2: Judgment Day (1991)
 97,Dances with Wolves (1990)
+243,Jungle2Jungle (1997)
 98,"Silence of the Lambs, The (1991)"
 99,Snow White and the Seven Dwarfs (1937)
 100,Fargo (1996)
@@ -109,7 +108,6 @@ movie_id,title
 108,Kids in the Hall: Brain Candy (1996)
 109,Mystery Science Theater 3000: The Movie (1996)
 110,Operation Dumbo Drop (1995)
-111,"Truth About Cats & Dogs, The (1996)"
 112,Flipper (1996)
 113,"Horseman on the Roof, The (Hussard sur le toit, Le) (1995)"
 114,Wallace & Gromit: The Best of Aardman Animation (1996)
@@ -161,6 +159,7 @@ movie_id,title
 160,Glengarry Glen Ross (1992)
 161,Top Gun (1986)
 162,On Golden Pond (1981)
+373,Judge Dredd (1995)
 163,"Return of the Pink Panther, The (1974)"
 164,"Abyss, The (1989)"
 165,Jean de Florette (1986)
@@ -176,6 +175,7 @@ movie_id,title
 175,Brazil (1985)
 176,Aliens (1986)
 177,"Good, The Bad and The Ugly, The (1966)"
+244,Smilla's Sense of Snow (1997)
 178,12 Angry Men (1957)
 179,"Clockwork Orange, A (1971)"
 180,Apocalypse Now (1979)
@@ -193,6 +193,7 @@ movie_id,title
 192,Raging Bull (1980)
 193,"Right Stuff, The (1983)"
 194,"Sting, The (1973)"
+224,Ridicule (1996)
 195,"Terminator, The (1984)"
 196,Dead Poets Society (1989)
 197,"Graduate, The (1967)"
@@ -208,6 +209,8 @@ movie_id,title
 207,Cyrano de Bergerac (1990)
 208,Young Frankenstein (1974)
 209,This Is Spinal Tap (1984)
+225,101 Dalmatians (1996)
+242,Kolya (1996)
 210,Indiana Jones and the Last Crusade (1989)
 211,M*A*S*H (1970)
 212,"Unbearable Lightness of Being, The (1988)"
@@ -222,8 +225,6 @@ movie_id,title
 221,Breaking the Waves (1996)
 222,Star Trek: First Contact (1996)
 223,Sling Blade (1996)
-224,Ridicule (1996)
-225,101 Dalmatians (1996)
 226,Die Hard 2 (1990)
 227,Star Trek VI: The Undiscovered Country (1991)
 228,Star Trek: The Wrath of Khan (1982)
@@ -240,9 +241,6 @@ movie_id,title
 239,Sneakers (1992)
 240,Beavis and Butt-head Do America (1996)
 241,"Last of the Mohicans, The (1992)"
-242,Kolya (1996)
-243,Jungle2Jungle (1997)
-244,Smilla's Sense of Snow (1997)
 245,"Devil's Own, The (1997)"
 246,Chasing Amy (1997)
 247,Turbo: A Power Rangers Movie (1997)
@@ -256,7 +254,9 @@ movie_id,title
 255,My Best Friend's Wedding (1997)
 256,When the Cats Away (Chacun cherche son chat) (1996)
 257,Men in Black (1997)
+734,Made in America (1993)
 258,Contact (1997)
+459,"Cry, the Beloved Country (1995)"
 259,George of the Jungle (1997)
 260,Event Horizon (1997)
 261,Air Bud (1997)
@@ -272,6 +272,7 @@ movie_id,title
 271,Starship Troopers (1997)
 272,Good Will Hunting (1997)
 273,Heat (1995)
+339,Mad City (1997)
 274,Sabrina (1995)
 275,Sense and Sensibility (1995)
 276,Leaving Las Vegas (1995)
@@ -306,6 +307,7 @@ movie_id,title
 305,"Ice Storm, The (1997)"
 306,"Mrs. Brown (Her Majesty, Mrs. Brown) (1997)"
 307,"Devil's Advocate, The (1997)"
+325,Crash (1996)
 308,FairyTale: A True Story (1997)
 309,Deceiver (1997)
 310,"Rainmaker, The (1997)"
@@ -323,7 +325,6 @@ movie_id,title
 322,Murder at 1600 (1997)
 323,Dante's Peak (1997)
 324,Lost Highway (1997)
-325,Crash (1996)
 326,G.I. Jane (1997)
 327,Cop Land (1997)
 328,Conspiracy Theory (1997)
@@ -337,7 +338,7 @@ movie_id,title
 336,Playing God (1997)
 337,"House of Yes, The (1997)"
 338,Bean (1997)
-339,Mad City (1997)
+356,"Client, The (1994)"
 340,Boogie Nights (1997)
 341,Critical Care (1997)
 342,"Man Who Knew Too Little, The (1997)"
@@ -354,7 +355,7 @@ movie_id,title
 353,Deep Rising (1998)
 354,"Wedding Singer, The (1998)"
 355,Sphere (1998)
-356,"Client, The (1994)"
+419,Mary Poppins (1964)
 357,One Flew Over the Cuckoo's Nest (1975)
 358,Spawn (1997)
 359,"Assignment, The (1997)"
@@ -371,7 +372,7 @@ movie_id,title
 370,Mary Reilly (1996)
 371,"Bridges of Madison County, The (1995)"
 372,Jeffrey (1995)
-373,Judge Dredd (1995)
+1158,"Fille seule, La (A Single Girl) (1995)"
 374,Mighty Morphin Power Rangers: The Movie (1995)
 375,Showgirls (1995)
 376,Houseguest (1994)
@@ -388,6 +389,7 @@ movie_id,title
 387,"Age of Innocence, The (1993)"
 388,Beverly Hills Cop III (1994)
 389,Black Beauty (1994)
+460,"Crossing Guard, The (1995)"
 390,Fear of a Black Hat (1993)
 391,Last Action Hero (1993)
 392,"Man Without a Face, The (1993)"
@@ -402,6 +404,7 @@ movie_id,title
 401,"Brady Bunch Movie, The (1995)"
 402,Ghost (1990)
 403,Batman (1989)
+420,Alice in Wonderland (1951)
 404,Pinocchio (1940)
 405,Mission: Impossible (1996)
 406,Thinner (1996)
@@ -417,8 +420,6 @@ movie_id,title
 416,Old Yeller (1957)
 417,"Parent Trap, The (1961)"
 418,Cinderella (1950)
-419,Mary Poppins (1964)
-420,Alice in Wonderland (1951)
 421,William Shakespeare's Romeo and Juliet (1996)
 422,Aladdin and the King of Thieves (1996)
 423,E.T. the Extra-Terrestrial (1982)
@@ -439,6 +440,7 @@ movie_id,title
 438,Amityville 3-D (1983)
 439,Amityville: A New Generation (1993)
 440,Amityville II: The Possession (1982)
+493,"Thin Man, The (1934)"
 441,"Amityville Horror, The (1979)"
 442,"Amityville Curse, The (1990)"
 443,"Birds, The (1963)"
@@ -457,8 +459,6 @@ movie_id,title
 456,Beverly Hills Ninja (1997)
 457,Free Willy 3: The Rescue (1997)
 458,Nixon (1995)
-459,"Cry, the Beloved Country (1995)"
-460,"Crossing Guard, The (1995)"
 461,Smoke (1995)
 462,Like Water For Chocolate (Como agua para chocolate) (1992)
 463,"Secret of Roan Inish, The (1994)"
@@ -487,11 +487,11 @@ movie_id,title
 486,Sabrina (1954)
 487,Roman Holiday (1953)
 488,Sunset Blvd. (1950)
+538,Anastasia (1997)
 489,Notorious (1946)
 490,To Catch a Thief (1955)
 491,"Adventures of Robin Hood, The (1938)"
 492,East of Eden (1955)
-493,"Thin Man, The (1934)"
 494,His Girl Friday (1940)
 495,Around the World in 80 Days (1956)
 496,It's a Wonderful Life (1946)
@@ -504,6 +504,7 @@ movie_id,title
 503,"Candidate, The (1972)"
 504,Bonnie and Clyde (1967)
 505,Dial M for Murder (1954)
+557,Farinelli: il castrato (1994)
 506,Rebel Without a Cause (1955)
 507,"Streetcar Named Desire, A (1951)"
 508,"People vs. Larry Flynt, The (1996)"
@@ -521,10 +522,12 @@ movie_id,title
 520,"Great Escape, The (1963)"
 521,"Deer Hunter, The (1978)"
 522,Down by Law (1986)
+556,Wild Bill (1995)
 523,Cool Hand Luke (1967)
 524,"Great Dictator, The (1940)"
 525,"Big Sleep, The (1946)"
 526,Ben-Hur (1959)
+544,Things to Do in Denver when You're Dead (1995)
 527,Gandhi (1982)
 528,"Killing Fields, The (1984)"
 529,My Life as a Dog (Mitt liv som hund) (1985)
@@ -536,13 +539,11 @@ movie_id,title
 535,Addicted to Love (1997)
 536,Ponette (1996)
 537,My Own Private Idaho (1991)
-538,Anastasia (1997)
 539,Mouse Hunt (1997)
 540,Money Train (1995)
 541,Mortal Kombat (1995)
 542,Pocahontas (1995)
 543,"Misérables, Les (1995)"
-544,Things to Do in Denver when You're Dead (1995)
 545,Vampire in Brooklyn (1995)
 546,Broken Arrow (1996)
 547,"Young Poisoner's Handbook, The (1995)"
@@ -554,8 +555,6 @@ movie_id,title
 553,"Walk in the Clouds, A (1995)"
 554,Waterworld (1995)
 555,White Man's Burden (1995)
-556,Wild Bill (1995)
-557,Farinelli: il castrato (1994)
 558,Heavenly Creatures (1994)
 559,Interview with the Vampire (1994)
 560,"Kid in King Arthur's Court, A (1995)"
@@ -573,10 +572,12 @@ movie_id,title
 572,Blown Away (1994)
 573,Body Snatchers (1993)
 574,Boxing Helena (1993)
+605,Meet Me in St. Louis (1944)
 575,City Slickers II: The Legend of Curly's Gold (1994)
 576,Cliffhanger (1993)
 577,Coneheads (1993)
 578,Demolition Man (1993)
+870,Touch (1997)
 579,Fatal Instinct (1993)
 580,"Englishman Who Went Up a Hill, But Came Down a Mountain, The (1995)"
 581,Kalifornia (1993)
@@ -589,9 +590,11 @@ movie_id,title
 588,Beauty and the Beast (1991)
 589,"Wild Bunch, The (1969)"
 590,Hellraiser: Bloodline (1996)
+653,Touch of Evil (1958)
 591,Primal Fear (1996)
 592,True Crime (1995)
 593,Stalingrad (1993)
+1209,Mixed Nuts (1994)
 594,Heavy (1995)
 595,"Fan, The (1996)"
 596,"Hunchback of Notre Dame, The (1996)"
@@ -603,7 +606,6 @@ movie_id,title
 602,"American in Paris, An (1951)"
 603,Rear Window (1954)
 604,It Happened One Night (1934)
-605,Meet Me in St. Louis (1944)
 606,All About Eve (1950)
 607,Rebecca (1940)
 608,Spellbound (1945)
@@ -619,6 +621,7 @@ movie_id,title
 618,Picnic (1955)
 619,Extreme Measures (1996)
 620,"Chamber, The (1996)"
+669,Body Parts (1991)
 621,"Davy Crockett, King of the Wild Frontier (1955)"
 622,Swiss Family Robinson (1960)
 623,Angels in the Outfield (1994)
@@ -633,6 +636,7 @@ movie_id,title
 632,Sophie's Choice (1982)
 633,"Christmas Carol, A (1938)"
 634,Microcosmos: Le peuple de l'herbe (1996)
+652,Rosencrantz and Guildenstern Are Dead (1990)
 635,"Fog, The (1980)"
 636,Escape from New York (1981)
 637,"Howling, The (1981)"
@@ -650,11 +654,10 @@ movie_id,title
 649,Once Upon a Time in America (1984)
 650,"Seventh Seal, The (Sjunde inseglet, Det) (1957)"
 651,Glory (1989)
-652,Rosencrantz and Guildenstern Are Dead (1990)
-653,Touch of Evil (1958)
 654,Chinatown (1974)
 655,Stand by Me (1986)
 656,M (1931)
+674,Cat People (1982)
 657,"Manchurian Candidate, The (1962)"
 658,Pump Up the Volume (1990)
 659,Arsenic and Old Lace (1944)
@@ -667,12 +670,10 @@ movie_id,title
 666,Blood For Dracula (Andy Warhol's Dracula) (1974)
 667,Audrey Rose (1977)
 668,Blood Beach (1981)
-669,Body Parts (1991)
 670,Body Snatchers (1993)
 671,Bride of Frankenstein (1935)
 672,Candyman (1992)
 673,Cape Fear (1962)
-674,Cat People (1982)
 675,"Nosferatu (Nosferatu, eine Symphonie des Grauens) (1922)"
 676,"Crucible, The (1996)"
 677,Fire on the Mountain (1996)
@@ -688,6 +689,7 @@ movie_id,title
 687,McHale's Navy (1997)
 688,Leave It to Beaver (1997)
 689,"Jackal, The (1997)"
+722,Nine Months (1995)
 690,Seven Years in Tibet (1997)
 691,Dark City (1998)
 692,"American President, The (1995)"
@@ -704,6 +706,7 @@ movie_id,title
 703,Widows' Peak (1994)
 704,"House of the Spirits, The (1993)"
 705,Singin' in the Rain (1952)
+784,Beyond Bedlam (1993)
 706,Bad Moon (1996)
 707,Enchanted April (1991)
 708,"Sex, Lies, and Videotape (1989)"
@@ -720,7 +723,6 @@ movie_id,title
 719,Canadian Bacon (1994)
 720,First Knight (1995)
 721,Mallrats (1995)
-722,Nine Months (1995)
 723,Boys on the Side (1995)
 724,Circle of Friends (1995)
 725,Exit to Eden (1994)
@@ -732,7 +734,6 @@ movie_id,title
 731,"Corrina, Corrina (1994)"
 732,Dave (1993)
 733,Go Fish (1994)
-734,Made in America (1993)
 735,Philadelphia (1993)
 736,Shadowlands (1993)
 737,Sirens (1994)
@@ -749,10 +750,12 @@ movie_id,title
 748,"Saint, The (1997)"
 749,"MatchMaker, The (1997)"
 750,Amistad (1997)
+796,Speechless (1994)
 751,Tomorrow Never Dies (1997)
 752,"Replacement Killers, The (1998)"
 753,Burnt By the Sun (1994)
 754,Red Corner (1997)
+817,Frisk (1995)
 755,Jumanji (1995)
 756,Father of the Bride Part II (1995)
 757,Across the Sea of Time (1995)
@@ -764,10 +767,12 @@ movie_id,title
 763,Happy Gilmore (1996)
 764,If Lucy Fell (1996)
 765,Boomerang (1992)
+797,Timecop (1994)
 766,Man of the Year (1995)
 767,"Addiction, The (1995)"
 768,Casper (1995)
 769,Congo (1995)
+818,Girl 6 (1996)
 770,Devil in a Blue Dress (1995)
 771,Johnny Mnemonic (1995)
 772,Kids (1995)
@@ -779,10 +784,10 @@ movie_id,title
 778,Don Juan DeMarco (1995)
 779,Drop Zone (1994)
 780,Dumb & Dumber (1994)
+912,U.S. Marshalls (1998)
 781,French Kiss (1995)
 782,Little Odessa (1994)
 783,Milk Money (1994)
-784,Beyond Bedlam (1993)
 785,Only You (1994)
 786,"Perez Family, The (1995)"
 787,Roommates (1995)
@@ -794,11 +799,10 @@ movie_id,title
 793,Crooklyn (1994)
 794,It Could Happen to You (1994)
 795,Richie Rich (1994)
-796,Speechless (1994)
-797,Timecop (1994)
 798,Bad Company (1995)
 799,Boys Life (1995)
 800,In the Mouth of Madness (1995)
+834,Halloween: The Curse of Michael Myers (1995)
 801,"Air Up There, The (1994)"
 802,Hard Target (1993)
 803,Heaven & Earth (1993)
@@ -815,8 +819,6 @@ movie_id,title
 814,"Great Day in Harlem, A (1994)"
 815,One Fine Day (1996)
 816,Candyman: Farewell to the Flesh (1995)
-817,Frisk (1995)
-818,Girl 6 (1996)
 819,Eddie (1996)
 820,Space Jam (1996)
 821,Mrs. Winterbourne (1996)
@@ -826,13 +828,13 @@ movie_id,title
 825,"Arrival, The (1996)"
 826,"Phantom, The (1996)"
 827,Daylight (1996)
+845,That Thing You Do! (1996)
 828,Alaska (1996)
 829,Fled (1996)
 830,Power 98 (1995)
 831,Escape from L.A. (1996)
 832,Bogus (1996)
 833,Bulletproof (1996)
-834,Halloween: The Curse of Michael Myers (1995)
 835,"Gay Divorcee, The (1934)"
 836,Ninotchka (1939)
 837,Meet John Doe (1941)
@@ -843,7 +845,6 @@ movie_id,title
 842,Pollyanna (1960)
 843,"Shaggy Dog, The (1959)"
 844,Freeway (1996)
-845,That Thing You Do! (1996)
 846,To Gillian on Her 37th Birthday (1996)
 847,Looking for Richard (1996)
 848,"Murder, My Sweet (1944)"
@@ -861,6 +862,7 @@ movie_id,title
 860,"Believers, The (1987)"
 861,Nosferatu a Venezia (1986)
 862,Jingle All the Way (1996)
+881,Money Talks (1997)
 863,"Garden of Finzi-Contini, The (Giardino dei Finzi-Contini, Il) (1970)"
 864,My Fellow Americans (1996)
 865,"Ice Storm, The (1997)"
@@ -868,7 +870,6 @@ movie_id,title
 867,"Whole Wide World, The (1996)"
 868,Hearts and Minds (1996)
 869,Fools Rush In (1997)
-870,Touch (1997)
 871,Vegas Vacation (1997)
 872,Love Jones (1997)
 873,Picture Perfect (1997)
@@ -879,7 +880,6 @@ movie_id,title
 878,That Darn Cat! (1997)
 879,"Peacemaker, The (1997)"
 880,Soul Food (1997)
-881,Money Talks (1997)
 882,Washington Square (1997)
 883,Telling Lies in America (1997)
 884,Year of the Horse (1997)
@@ -895,6 +895,7 @@ movie_id,title
 894,Home Alone 3 (1997)
 895,Scream 2 (1997)
 896,"Sweet Hereafter, The (1997)"
+911,Twilight (1998)
 897,Time Tracers (1995)
 898,"Postman, The (1997)"
 899,"Winter Guest, The (1997)"
@@ -909,8 +910,6 @@ movie_id,title
 908,Half Baked (1998)
 909,Dangerous Beauty (1998)
 910,Nil By Mouth (1997)
-911,Twilight (1998)
-912,U.S. Marshalls (1998)
 913,Love and Death on Long Island (1997)
 914,Wild Things (1998)
 915,Primary Colors (1998)
@@ -918,6 +917,7 @@ movie_id,title
 917,Mercury Rising (1998)
 918,City of Angels (1998)
 919,"City of Lost Children, The (1995)"
+935,Paradise Road (1997)
 920,Two Bits (1995)
 921,Farewell My Concubine (1993)
 922,Dead Man (1995)
@@ -933,7 +933,6 @@ movie_id,title
 932,First Kid (1996)
 933,"Funeral, The (1996)"
 934,"Preacher's Wife, The (1996)"
-935,Paradise Road (1997)
 936,Brassed Off (1996)
 937,"Thousand Acres, A (1997)"
 938,"Smile Like Yours, A (1997)"
@@ -974,6 +973,7 @@ movie_id,title
 973,Grateful Dead (1995)
 974,Eye for an Eye (1996)
 975,Fear (1996)
+1007,Waiting for Guffman (1996)
 976,Solo (1996)
 977,"Substitute, The (1996)"
 978,Heaven's Prisoners (1996)
@@ -1005,7 +1005,6 @@ movie_id,title
 1004,Geronimo: An American Legend (1993)
 1005,"Double vie de Véronique, La (Double Life of Veronique, The) (1991)"
 1006,Until the End of the World (Bis ans Ende der Welt) (1991)
-1007,Waiting for Guffman (1996)
 1008,I Shot Andy Warhol (1996)
 1009,Stealing Beauty (1996)
 1010,Basquiat (1996)
@@ -1020,6 +1019,7 @@ movie_id,title
 1019,"Die xue shuang xiong (Killer, The) (1989)"
 1020,Gaslight (1944)
 1021,8 1/2 (1963)
+1054,Mr. Wrong (1996)
 1022,"Fast, Cheap & Out of Control (1997)"
 1023,Fathers' Day (1997)
 1024,Mrs. Dalloway (1997)
@@ -1036,6 +1036,7 @@ movie_id,title
 1035,Cool Runnings (1993)
 1036,Drop Dead Fred (1991)
 1037,Grease 2 (1982)
+1115,Twelfth Night (1996)
 1038,Switchback (1997)
 1039,Hamlet (1996)
 1040,Two if by Sea (1996)
@@ -1052,7 +1053,7 @@ movie_id,title
 1051,"Associate, The (1996)"
 1052,Dracula: Dead and Loving It (1995)
 1053,Now and Then (1995)
-1054,Mr. Wrong (1996)
+1148,Tom & Viv (1994)
 1055,"Simple Twist of Fate, A (1994)"
 1056,Cronos (1992)
 1057,"Pallbearer, The (1996)"
@@ -1068,6 +1069,7 @@ movie_id,title
 1067,Bottle Rocket (1996)
 1068,"Star Maker, The (Uomo delle stelle, L') (1995)"
 1069,Amateur (1994)
+1382,"Bonheur, Le (1965)"
 1070,Living in Oblivion (1995)
 1071,Party Girl (1995)
 1072,"Pyromaniac's Love Story, A (1995)"
@@ -1075,6 +1077,7 @@ movie_id,title
 1074,Reality Bites (1994)
 1075,"Man of No Importance, A (1994)"
 1076,"Pagemaster, The (1994)"
+1105,Firestorm (1998)
 1077,Love and a .45 (1994)
 1078,Oliver & Company (1988)
 1079,Joe's Apartment (1996)
@@ -1103,7 +1106,6 @@ movie_id,title
 1102,Two Much (1996)
 1103,Trust (1990)
 1104,C'est arrivé près de chez vous (1992)
-1105,Firestorm (1998)
 1106,"Newton Boys, The (1998)"
 1107,Beyond Rangoon (1995)
 1108,Feast of July (1995)
@@ -1113,7 +1115,6 @@ movie_id,title
 1112,Cobb (1994)
 1113,Mrs. Parker and the Vicious Circle (1994)
 1114,Faithful (1996)
-1115,Twelfth Night (1996)
 1116,"Mark of Zorro, The (1940)"
 1117,Surviving Picasso (1996)
 1118,Up in Smoke (1978)
@@ -1146,7 +1147,6 @@ movie_id,title
 1145,Blue Chips (1994)
 1146,Calendar Girl (1993)
 1147,My Family (1995)
-1148,Tom & Viv (1994)
 1149,Walkabout (1971)
 1150,Last Dance (1996)
 1151,Original Gangstas (1996)
@@ -1156,7 +1156,6 @@ movie_id,title
 1155,"Rendezvous in Paris (Rendez-vous de Paris, Les) (1995)"
 1156,Cyclo (1995)
 1157,"Relic, The (1997)"
-1158,"Fille seule, La (A Single Girl) (1995)"
 1159,Stalker (1979)
 1160,Love! Valour! Compassion! (1997)
 1161,Palookaville (1996)
@@ -1191,6 +1190,7 @@ movie_id,title
 1190,That Old Feeling (1997)
 1191,"Letter From Death Row, A (1998)"
 1192,"Boys of St. Vincent, The (1993)"
+1210,Virtuosity (1995)
 1193,Before the Rain (Pred dozhdot) (1994)
 1194,Once Were Warriors (1994)
 1195,Strawberry and Chocolate (Fresa y chocolate) (1993)
@@ -1207,8 +1207,6 @@ movie_id,title
 1206,Amos & Andrew (1993)
 1207,Jade (1995)
 1208,Kiss of Death (1995)
-1209,Mixed Nuts (1994)
-1210,Virtuosity (1995)
 1211,Blue Sky (1994)
 1212,Flesh and Bone (1993)
 1213,Guilty as Sin (1993)
@@ -1230,6 +1228,7 @@ movie_id,title
 1229,Poison Ivy II (1995)
 1230,Ready to Wear (Pret-A-Porter) (1994)
 1231,Marked for Death (1990)
+1246,Bushwhacked (1995)
 1232,Madonna: Truth or Dare (1991)
 1233,Nénette et Boni (1996)
 1234,Chairman of the Board (1998)
@@ -1244,7 +1243,6 @@ movie_id,title
 1243,Night Flier (1997)
 1244,Metro (1997)
 1245,Gridlock'd (1997)
-1246,Bushwhacked (1995)
 1247,Bad Girls (1994)
 1248,Blink (1994)
 1249,For Love or Money (1993)
@@ -1261,6 +1259,7 @@ movie_id,title
 1260,Total Eclipse (1995)
 1261,"Run of the Country, The (1995)"
 1262,Walking and Talking (1996)
+1381,Losing Chase (1996)
 1263,Foxfire (1996)
 1264,Nothing to Lose (1994)
 1265,Star Maps (1997)
@@ -1270,12 +1269,15 @@ movie_id,title
 1269,Love in the Afternoon (1957)
 1270,Life with Mikey (1993)
 1271,North (1994)
+1286,Shall We Dance? (1937)
+1651,"Spanish Prisoner, The (1997)"
 1272,Talking About Sex (1994)
 1273,Color of Night (1994)
 1274,Robocop 3 (1993)
 1275,Killer (Bulletproof Heart) (1994)
 1276,Sunset Park (1996)
 1277,Set It Off (1996)
+1365,Johnny 100 Pesos (1993)
 1278,Selena (1997)
 1279,Wild America (1997)
 1280,Gang Related (1997)
@@ -1284,14 +1286,14 @@ movie_id,title
 1283,Out to Sea (1997)
 1284,Before and After (1996)
 1285,Princess Caraboo (1994)
-1286,Shall We Dance? (1937)
+1319,"Neon Bible, The (1995)"
 1287,Ed (1996)
 1288,Denise Calls Up (1995)
 1289,Jack and Sarah (1995)
 1290,Country Life (1994)
 1291,Celtic Pride (1996)
+1366,JLG/JLG - autoportrait de décembre (1994)
 1292,"Simple Wish, A (1997)"
-1293,Star Kid (1997)
 1294,Ayn Rand: A Sense of Life (1997)
 1295,Kicked in the Head (1997)
 1296,Indian Summer (1996)
@@ -1317,7 +1319,6 @@ movie_id,title
 1316,"Horse Whisperer, The (1998)"
 1317,"Journey of August King, The (1995)"
 1318,Catwalk (1995)
-1319,"Neon Bible, The (1995)"
 1320,Homage (1995)
 1321,Open Season (1996)
 1322,Metisse (Café au Lait) (1993)
@@ -1350,6 +1351,7 @@ movie_id,title
 1349,Mille bolle blu (1993)
 1350,Crows and Sparrows (1949)
 1351,Lover's Knot (1996)
+1367,Faust (1994)
 1352,Shadow of Angels (Schatten der Engel) (1976)
 1353,1-900 (1994)
 1354,Venice/Venice (1992)
@@ -1358,14 +1360,12 @@ movie_id,title
 1357,For the Moment (1994)
 1358,The Deadly Cure (1996)
 1359,Boys in Venice (1996)
+1376,Meet Wally Sparks (1997)
 1360,"Sexual Life of the Belgians, The (1994)"
 1361,"Search for One-eye Jimmy, The (1996)"
 1362,American Strays (1996)
 1363,"Leopard Son, The (1996)"
 1364,Bird of Prey (1996)
-1365,Johnny 100 Pesos (1993)
-1366,JLG/JLG - autoportrait de décembre (1994)
-1367,Faust (1994)
 1368,Mina Tannenbaum (1994)
 1369,"Forbidden Christ, The (Cristo proibito, Il) (1950)"
 1370,I Can't Sleep (J'ai pas sommeil) (1994)
@@ -1374,13 +1374,10 @@ movie_id,title
 1373,Good Morning (1971)
 1374,Falling in Love Again (1980)
 1375,"Cement Garden, The (1993)"
-1376,Meet Wally Sparks (1997)
 1377,Hotel de Love (1996)
 1378,Rhyme & Reason (1997)
 1379,Love and Other Catastrophes (1996)
 1380,Hollow Reed (1996)
-1381,Losing Chase (1996)
-1382,"Bonheur, Le (1965)"
 1383,"Second Jungle Book: Mowgli & Baloo, The (1997)"
 1384,Squeeze (1996)
 1385,Roseanna's Grave (For Roseanna) (1997)
@@ -1390,6 +1387,7 @@ movie_id,title
 1389,Mondo (1996)
 1390,"Innocent Sleep, The (1995)"
 1391,For Ever Mozart (1996)
+1411,Barbarella (1968)
 1392,"Locusts, The (1997)"
 1393,Stag (1997)
 1394,Swept from the Sea (1997)
@@ -1409,11 +1407,11 @@ movie_id,title
 1408,Gordy (1995)
 1409,"Swan Princess, The (1994)"
 1410,Harlem (1993)
-1411,Barbarella (1968)
 1412,Land Before Time III: The Time of the Great Giving (1995) (V)
 1413,Street Fighter (1994)
 1414,Coldblooded (1995)
 1415,"Next Karate Kid, The (1994)"
+1479,Reckless (1995)
 1416,No Escape (1994)
 1417,"Turning, The (1992)"
 1418,"Joy Luck Club, The (1993)"
@@ -1425,6 +1423,8 @@ movie_id,title
 1424,I Like It Like That (1994)
 1425,I'll Do Anything (1994)
 1426,Grace of My Heart (1996)
+1443,8 Seconds (1994)
+1444,That Darn Cat! (1965)
 1427,Drunks (1995)
 1428,SubUrbia (1997)
 1429,Sliding Doors (1998)
@@ -1441,11 +1441,10 @@ movie_id,title
 1440,Above the Rim (1994)
 1441,Moonlight and Valentino (1995)
 1442,"Scarlet Letter, The (1995)"
-1443,8 Seconds (1994)
-1444,That Darn Cat! (1965)
 1445,Ladybird Ladybird (1994)
 1446,"Bye Bye, Love (1995)"
 1447,Century (1993)
+1480,Herbie Rides Again (1974)
 1448,My Favorite Season (1993)
 1449,Pather Panchali (1955)
 1450,Golden Earrings (1947)
@@ -1459,6 +1458,7 @@ movie_id,title
 1458,"Damsel in Distress, A (1937)"
 1459,Madame Butterfly (1995)
 1460,Sleepover (1995)
+1555,"Secret Adventures of Tom Thumb, The (1993)"
 1461,Here Comes Cookie (1935)
 1462,"Thieves (Voleurs, Les) (1996)"
 1463,"Boys, Les (1997)"
@@ -1477,8 +1477,7 @@ movie_id,title
 1476,Raw Deal (1948)
 1477,Nightwatch (1997)
 1478,Dead Presidents (1995)
-1479,Reckless (1995)
-1480,Herbie Rides Again (1974)
+1527,Senseless (1998)
 1481,S.F.W. (1994)
 1482,"Gate of Heavenly Peace, The (1995)"
 1483,"Man in the Iron Mask, The (1998)"
@@ -1494,6 +1493,7 @@ movie_id,title
 1493,"Modern Affair, A (1995)"
 1494,"Mostro, Il (1994)"
 1495,Flirt (1995)
+1511,Children of the Revolution (1996)
 1496,Carpool (1996)
 1497,"Line King: Al Hirschfeld, The (1996)"
 1498,Farmer & Chase (1995)
@@ -1509,7 +1509,6 @@ movie_id,title
 1508,"Babysitter, The (1995)"
 1509,Getting Even with Dad (1994)
 1510,Mad Dog Time (1996)
-1511,Children of the Revolution (1996)
 1512,"World of Apu, The (Apur Sansar) (1959)"
 1513,Sprung (1997)
 1514,Dream With the Fishes (1997)
@@ -1525,7 +1524,6 @@ movie_id,title
 1524,Kaspar Hauser (1993)
 1525,"Object of My Affection, The (1998)"
 1526,Witness (1985)
-1527,Senseless (1998)
 1528,Nowhere (1997)
 1529,Underground (1995)
 1530,Jefferson in Paris (1995)
@@ -1541,6 +1539,7 @@ movie_id,title
 1540,"Amazing Panda Adventure, The (1995)"
 1541,"Beans of Egypt, Maine, The (1994)"
 1542,"Scarlet Letter, The (1926)"
+1667,"Next Step, The (1995)"
 1543,Johns (1996)
 1544,It Takes Two (1995)
 1545,Frankie Starlight (1995)
@@ -1553,9 +1552,9 @@ movie_id,title
 1552,"Hunted, The (1995)"
 1553,"Underneath, The (1995)"
 1554,Safe Passage (1994)
-1555,"Secret Adventures of Tom Thumb, The (1993)"
 1556,Condition Red (1995)
 1557,Yankee Zulu (1994)
+1571,Touki Bouki (Journey of the Hyena) (1973)
 1558,Aparajito (1956)
 1559,Hostile Intentions (1994)
 1560,Clean Slate (Coup de Torchon) (1981)
@@ -1569,7 +1568,6 @@ movie_id,title
 1568,Vermont Is For Lovers (1992)
 1569,"Vie est belle, La (Life is Rosey) (1987)"
 1570,Quartier Mozart (1992)
-1571,Touki Bouki (Journey of the Hyena) (1973)
 1572,Wend Kuuni (God's Gift) (1982)
 1573,Spirits of the Dead (Tre passi nel delirio) (1968)
 1574,Pharaoh's Army (1995)
@@ -1586,6 +1584,7 @@ movie_id,title
 1585,American Dream (1990)
 1586,Lashou shentan (1992)
 1587,Terror in a Texas Town (1958)
+1603,Angela (1995)
 1588,Salut cousin! (1996)
 1589,Schizopolis (1996)
 1590,"To Have, or Not (1995)"
@@ -1599,9 +1598,9 @@ movie_id,title
 1598,City of Industry (1997)
 1599,Someone Else's America (1995)
 1600,Guantanamera (1994)
+1635,Two Friends (1986) 
 1601,Office Killer (1997)
 1602,"Price Above Rubies, A (1998)"
-1603,Angela (1995)
 1604,He Walked by Night (1948)
 1605,Love Serenade (1996)
 1606,Deceiver (1997)
@@ -1633,7 +1632,6 @@ movie_id,title
 1632,Land and Freedom (Tierra y libertad) (1995)
 1633,Á köldum klaka (Cold Fever) (1994)
 1634,Etz Hadomim Tafus (Under the Domin Tree) (1994)
-1635,Two Friends (1986) 
 1636,Brothers in Trouble (1995)
 1637,Girls Town (1996)
 1638,Normal Life (1996)
@@ -1649,7 +1647,6 @@ movie_id,title
 1648,"Niagara, Niagara (1997)"
 1649,"Big One, The (1997)"
 1650,"Butcher Boy, The (1998)"
-1651,"Spanish Prisoner, The (1997)"
 1652,Temptress Moon (Feng Yue) (1996)
 1653,Entertaining Angels: The Dorothy Day Story (1996)
 1654,Chairman of the Board (1998)
@@ -1665,7 +1662,6 @@ movie_id,title
 1664,8 Heads in a Duffel Bag (1997)
 1665,"Brother's Kiss, A (1997)"
 1666,Ripe (1996)
-1667,"Next Step, The (1995)"
 1668,Wedding Bell Blues (1996)
 1669,MURDER and murder (1996)
 1670,Tainted (1998)
@@ -1681,3 +1677,7 @@ movie_id,title
 1680,Sliding Doors (1998)
 1681,You So Crazy (1994)
 1682,Scream of Stone (Schrei aus Stein) (1991)
+1,Toy Story (1995)
+7,Twelve Monkeys (1995)
+1293,Star Kid (1997)
+2,GoldenEye (1995)

@@ -53,8 +53,8 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>mssql-jdbc</artifactId>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -96,6 +96,12 @@
 		</dependency>
 		<!--		bảo mật-->
 
+		<!-- Google API client -->
+		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>2.2.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

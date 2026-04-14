@@ -27,3 +27,19 @@ export function useRegister() {
         },
     });
 }
+
+export function useGoogleLogin() {
+    const auth = useAuth();
+
+    return useMutation({
+        mutationFn: async (idToken: string) => {
+            const res = await authService.googleLogin(idToken);
+            if (!res.data.success) throw new Error(res.data.message);
+            return res.data.data;
+        },
+        onSuccess: async (data) => {
+            localStorage.setItem("token", data.token);
+            await auth.login(data);
+        },
+    });
+}

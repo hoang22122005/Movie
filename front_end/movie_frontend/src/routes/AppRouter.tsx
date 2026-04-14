@@ -9,6 +9,7 @@ import BrowsePage from "../pages/BrowsePage";
 import WatchlistPage from "../pages/WatchlistPage";
 import WatchPage from "../pages/WatchPage";
 import ProfilePage from "../pages/ProfilePage";
+import VipUpgrade from "../pages/VipUpgrade";
 import PublicOnly from "./PublicOnly";
 import RequireAuth from "./RequireAuth";
 import RegisterLayout from "../layouts/RegisterLayout.tsx";
@@ -57,6 +58,7 @@ export default function AppRouter() {
                         <Route path="/user" element={<UserHomePage />} />
                         <Route path="/watchlist" element={<WatchlistPage />} />
                         <Route path="/profile" element={<ProfilePage />} />
+                        <Route path="/vip-upgrade" element={<VipUpgrade />} />
                     </Route>
 
                     <Route element={<RequireAdmin />}>

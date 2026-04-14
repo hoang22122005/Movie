@@ -24,7 +24,7 @@ public class Movie {
     @Column(name = "trailer_url")
     private String trailerUrl;
 
-    @Column(columnDefinition = "NVARCHAR(MAX)")
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "views_count")
@@ -38,4 +38,7 @@ public class Movie {
 
     @Column(name = "cnt_rating")
     private Integer cntRating;
+
+    @Column(name = "is_vip")
+    private boolean isVip;
 }

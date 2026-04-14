@@ -34,6 +34,12 @@ public class User implements UserDetails {
     private boolean status;
     private String urlAvt;
 
+    @Column(name = "is_vip")
+    private boolean isVip;
+
+    @Column(name = "vip_expiration")
+    private java.time.LocalDateTime vipExpiration;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         String roleName = role != null ? role : "USER";

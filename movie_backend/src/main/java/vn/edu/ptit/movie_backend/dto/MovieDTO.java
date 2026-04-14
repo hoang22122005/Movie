@@ -25,4 +25,5 @@ public class MovieDTO {
     private Double predictedRating;
     private float avgRating;
     private Integer cntRating;
+    private boolean isVip;
 }

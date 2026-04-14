@@ -22,8 +22,11 @@ export interface MovieResponse {
     viewCount: number;
     director: string;
     predictedRating?: number;
+    avgRating: number;
+    cntRating: number;
     genresId: number[];
     genres: string[];
+    isVip: boolean;
 }
 export interface UserDTO {
     userId: number;
@@ -34,7 +37,9 @@ export interface UserDTO {
     occupation?: string;
     age?: number;
     status: boolean;
-    urlAvt?: String;
+    urlAvt?: string;
+    isVip: boolean;
+    vipExpiration?: string;
 }
 export interface CommentDTO {
     commentId: number;

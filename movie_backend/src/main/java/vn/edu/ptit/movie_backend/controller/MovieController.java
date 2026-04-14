@@ -55,4 +55,10 @@ public class MovieController {
         return ResponseEntity.ok(new ApiResponse<>(true, "Lấy thành công danh sách phim đã xem",
                 movieService.getWatchedList(user.getUserId(), pageable)));
     }
+
+    @PostMapping("/public/movies/{id}/view")
+    public ResponseEntity<ApiResponse<Void>> incrementViewCount(@PathVariable("id") Integer id) {
+        movieService.incrementViewCount(id);
+        return ResponseEntity.ok(new ApiResponse<>(true, "Tăng lượt xem thành công", null));
+    }
 }

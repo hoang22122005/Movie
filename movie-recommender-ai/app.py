@@ -9,7 +9,7 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-DB_URL = "mssql+pyodbc://Web:123456@localhost:1433/Movie?driver=ODBC+Driver+17+for+SQL+Server"
+DB_URL = "postgresql+psycopg2://postgres:E,!kA%40x65J?377f@db.matjcxyattaokehxibbk.supabase.co:5432/postgres"
 
 # Globals
 movie_ids = []
@@ -56,7 +56,7 @@ def init_models():
 
         # Fallback: Phim phổ biến (Top ratings)
         engine = create_engine(DB_URL)
-        r_df = pd.read_sql("SELECT movie_id, rating_value FROM RATINGS", engine)
+        r_df = pd.read_sql('SELECT movie_id, rating_value FROM "ratings"', engine)
         stats = r_df.groupby('movie_id')['rating_value'].agg(['count', 'mean'])
         popular_movies_stats = stats[stats['count'] > 5].sort_values(by='mean', ascending=False).head(20)
         popular_movies = [{"movie_id": int(mid), "predicted_rating": round(float(row['mean']), 2)} 

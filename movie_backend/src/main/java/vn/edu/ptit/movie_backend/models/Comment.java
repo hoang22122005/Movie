@@ -27,7 +27,7 @@ public class Comment {
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
-    @Column(columnDefinition = "NVARCHAR(MAX)")
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     @Column(name = "created_at")

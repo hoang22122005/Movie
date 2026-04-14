@@ -22,47 +22,65 @@ import vn.edu.ptit.movie_backend.security.JwtUtils;
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
+    private final vn.edu.ptit.movie_backend.repository.UserRepository userRepository;
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<JwtResponse>> login(@Valid @RequestBody LoginRequest loginRequest) {
         try {
-
-            // Tạo ra yêu cầu xác thực"(UsernamePasswordAuthenticationToken) chứa Username
-            // và Password
-            // sẽ gọi đến CustomUserDetailsService.java để xác thực ở đấy là lấy thông tin
-            // user bằng email hoặc username và so sánh với password nếu đúng mới cấp token
-            // tự gọi loadUserByUsername
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-            // 2. Tạo Token
-            // ép kiểu thành User để lấy thông tin user
             vn.edu.ptit.movie_backend.models.User user = (vn.edu.ptit.movie_backend.models.User) authentication
                     .getPrincipal();
             String jwt = jwtUtils.generateToken(user.getUsername(), user.getUserId());
-
-            // 3. Lấy thông tin quyền (Role) của User
             String role = authentication.getAuthorities().iterator().next().getAuthority();
-            // 4. Trả về JwtResponse chuyên dụng
             JwtResponse response = new JwtResponse(jwt, authentication.getName(), role);
-
             return ResponseEntity.ok(new ApiResponse<>(true, "Đăng nhập thành công", response));
-            // xử lí user kh tồn tại
-        } catch (org.springframework.security.authentication.BadCredentialsException e) {
+        } catch (BadCredentialsException e) {
             return ResponseEntity.status(401)
                     .body(new ApiResponse<>(false, "Tài khoản hoặc mật khẩu không chính xác", null));
-            // xử lí user bị khoá hoặc bị xoá bắt buộc phải override user có isStatus thì nó
-            // mưới bắt lỗi này
-        } catch (org.springframework.security.authentication.DisabledException e) {
-            return ResponseEntity.status(401)
-                    .body(new ApiResponse<>(false, "Tài khoản của bạn đã bị khoá hoặc bị xoá", null));
-            // xử lí các lỗi khác
-        } catch (org.springframework.security.core.AuthenticationException e) {
-            return ResponseEntity.status(401)
-                    .body(new ApiResponse<>(false, e.getMessage(), null));
-            // lỗi hệ thống
         } catch (Exception e) {
             return ResponseEntity.status(500)
-                    .body(new ApiResponse<>(false, "Hệ thống xảy ra lỗi xác thực: " + e.getMessage(), null));
+                    .body(new ApiResponse<>(false, "Hệ thống xảy ra lỗi: " + e.getMessage(), null));
+        }
+    }
+
+    @PostMapping("/google-login")
+    public ResponseEntity<ApiResponse<JwtResponse>> googleLogin(
+            @RequestBody vn.edu.ptit.movie_backend.dto.auth.GoogleLoginRequest request) {
+        try {
+            com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier verifier = new com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier.Builder(
+                    new com.google.api.client.http.javanet.NetHttpTransport(),
+                    new com.google.api.client.json.gson.GsonFactory())
+                    .setAudience(java.util.Collections
+                            .singletonList("236061701239-b4kr09c84j1qdhkakprucvcr28cblaje.apps.googleusercontent.com"))
+                    .build();
+
+            com.google.api.client.googleapis.auth.oauth2.GoogleIdToken idToken = verifier.verify(request.getIdToken());
+            if (idToken != null) {
+                com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload payload = idToken.getPayload();
+                String email = payload.getEmail();
+                String pictureUrl = (String) payload.get("picture");
+
+                vn.edu.ptit.movie_backend.models.User user = userRepository.findByEmail(email).orElse(null);
+                if (user == null) {
+                    user = new vn.edu.ptit.movie_backend.models.User();
+                    user.setEmail(email);
+                    user.setUsername(email); // Use email as username for google login
+                    user.setRole("USER");
+                    user.setStatus(true);
+                    user.setUrlAvt(pictureUrl);
+                    userRepository.save(user);
+                }
+
+                String jwt = jwtUtils.generateToken(user.getUsername(), user.getUserId());
+                JwtResponse response = new JwtResponse(jwt, user.getUsername(), "ROLE_" + user.getRole());
+                return ResponseEntity.ok(new ApiResponse<>(true, "Đăng nhập bằng Google thành công", response));
+            } else {
+                return ResponseEntity.status(401).body(new ApiResponse<>(false, "Token Google không hợp lệ", null));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500)
+                    .body(new ApiResponse<>(false, "Lỗi xác thực Google: " + e.getMessage(), null));
         }
     }
 }
