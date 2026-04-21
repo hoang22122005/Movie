@@ -44,9 +44,16 @@ export default function BrowsePage() {
 
     // Sync input with URL search param
     useEffect(() => {
+        //lấy dữ liệu từ param của url khi ấn vào thể loại phim ở userhomepage
         setSearchTerm(queryTerm);
+        //tự động thay đổi khi gõ để lấy danh dách phim đó về
         setDebouncedSearch(queryTerm);
-    }, [queryTerm]);
+
+        const genreId = searchParams.get("genreId");
+        if (genreId) {
+            setSelectedGenreId(Number(genreId));
+        }
+    }, [queryTerm, searchParams]);
 
     // Update URL when search changes
     useEffect(() => {
@@ -191,6 +198,9 @@ export default function BrowsePage() {
                                     title={movie.title}
                                     genre={movie.genres.join(', ')}
                                     year={movie.releaseDate?.split('-')[0]}
+                                    views={movie.viewCount}
+                                    rating={movie.avgRating?.toFixed(1)}
+                                    isVip={movie.isVip}
                                     onClick={() => setSelectedMovie(movie)}
                                 />
                             ))}

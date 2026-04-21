@@ -19,6 +19,16 @@ export const movieService = {
     getPublicMovies: (params: GetPublicMoviesParams) =>
         api.get<ApiResponse<PageResponse<MovieResponse>>>("/public/movies", { params }),
 
+    getHotMovies: (size: number = 10) =>
+        api.get<ApiResponse<PageResponse<MovieResponse>>>("/public/movies", {
+            params: { size, sort: "viewCount,desc" }
+        }),
+
+    getTopRatedMovies: (size: number = 10) =>
+        api.get<ApiResponse<PageResponse<MovieResponse>>>("/public/movies/top-rated", {
+            params: { size, minRatings: 10 }
+        }),
+
     getMovieById: (movieId: number | string) =>
         api.get<ApiResponse<MovieResponse>>(`/public/movies/${movieId}`),
 

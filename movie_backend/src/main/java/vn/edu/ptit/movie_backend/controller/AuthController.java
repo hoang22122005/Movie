@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,9 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private final vn.edu.ptit.movie_backend.repository.UserRepository userRepository;
+
+    @Value("${google.client-id}")
+    private String googleClientId;
 
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<JwtResponse>> login(@Valid @RequestBody LoginRequest loginRequest) {
@@ -52,7 +56,7 @@ public class AuthController {
                     new com.google.api.client.http.javanet.NetHttpTransport(),
                     new com.google.api.client.json.gson.GsonFactory())
                     .setAudience(java.util.Collections
-                            .singletonList("236061701239-b4kr09c84j1qdhkakprucvcr28cblaje.apps.googleusercontent.com"))
+                            .singletonList(googleClientId))
                     .build();
 
             com.google.api.client.googleapis.auth.oauth2.GoogleIdToken idToken = verifier.verify(request.getIdToken());

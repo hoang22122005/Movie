@@ -2,6 +2,7 @@ package vn.edu.ptit.movie_backend.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -9,10 +10,11 @@ import java.util.Date;
 
 @Component
 public class JwtUtils {
-    // Salt (Muối): Chuỗi bí mật chỉ Server biết, dùng để "ký tên" và kiểm tra Token
-    private final String salt = "DaoDangHoangLamSaltDeHashMayThuPhaDi";
-    // Thời gian sống của Token: 7 ngày (tính theo mili giây)
-    private final long jwtEXPIRATION = 604800000L; // Hết hạn sau 7 ngày phải đăng nhập lại
+    @Value("${jwt.secret}")
+    private String salt;
+
+    @Value("${jwt.expiration}")
+    private long jwtEXPIRATION;
 
     // getSignKey: Chuyển chuỗi Salt thành mã dạng Key để thuật toán JWT có thể hiểu
     // được

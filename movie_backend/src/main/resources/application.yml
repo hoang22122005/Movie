@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: ${SERVER_PORT:8080}
   servlet:
     context-path: /
 
@@ -7,9 +7,9 @@ spring:
   application:
     name: Movie-backend
   datasource:
-    url: jdbc:postgresql://aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres?prepareThreshold=0
-    username: postgres.matjcxyattaokehxibbk
-    password: E,!kA@x65J?377f
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -18,10 +18,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-  
+
 flask:
   api:
-    url: http://localhost:5000
+    url: ${FLASK_API_URL:http://localhost:5000}
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
@@ -31,7 +32,17 @@ springdoc:
     enabled: true
 
 vnpay:
-  vnp_TmnCode: "I7X8N6N3"
-  vnp_HashSecret: "W7X9S0T3H5K2L1M4N8P9"
-  vnp_Url: "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html"
-  vnp_ReturnUrl: "http://localhost:5173/payment-callback"
+  vnp_TmnCode: ${VNP_TMN_CODE}
+  vnp_HashSecret: ${VNP_HASH_SECRET}
+  vnp_Url: ${VNP_URL:https://sandbox.vnpayment.vn/paymentv2/vpcpay.html}
+  vnp_ReturnUrl: ${VNP_RETURN_URL}
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION:604800000}
+
+google:
+  client-id: ${GOOGLE_CLIENT_ID}
+
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://localhost:3000}

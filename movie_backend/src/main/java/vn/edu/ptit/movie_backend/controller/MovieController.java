@@ -32,6 +32,14 @@ public class MovieController {
         return ResponseEntity.ok(new ApiResponse<>(true, "Lấy danh sách phim thành công", result));
     }
 
+    @GetMapping("/public/movies/top-rated")
+    public ResponseEntity<ApiResponse<PageResponse<MovieDTO>>> getTopRatedMovies(
+            @RequestParam(value = "minRatings", defaultValue = "10") Integer minRatings,
+            Pageable pageable) {
+        PageResponse<MovieDTO> result = movieService.getTopRatedMovies(minRatings, pageable);
+        return ResponseEntity.ok(new ApiResponse<>(true, "Lấy danh sách phim đánh giá cao thành công", result));
+    }
+
     @GetMapping("/public/movies/{id}")
     public ResponseEntity<ApiResponse<MovieDTO>> getMovieById(@PathVariable("id") Integer id) {
         MovieDTO result = movieService.getMovieById(id);
@@ -57,8 +65,14 @@ public class MovieController {
     }
 
     @PostMapping("/public/movies/{id}/view")
-    public ResponseEntity<ApiResponse<Void>> incrementViewCount(@PathVariable("id") Integer id) {
+    public ResponseEntity<ApiResponse<Void>> incrementViewCount(
+            @PathVariable("id") Integer id,
+            @AuthenticationPrincipal UserDetails userDetails) {
         movieService.incrementViewCount(id);
+        if (userDetails != null) {
+            User user = (User) userDetails;
+            movieService.addToWatchedList(user.getUserId(), id);
+        }
         return ResponseEntity.ok(new ApiResponse<>(true, "Tăng lượt xem thành công", null));
     }
 }

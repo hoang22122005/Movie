@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
         } else if (username != null)
             users = userRepository.findByUsernameContainingIgnoreCase(username, pageable).map(this::toDTO);
         else if (email != null)
-            users = users = userRepository.findByEmailContainingIgnoreCase(email, pageable).map(this::toDTO);
+            users = userRepository.findByEmailContainingIgnoreCase(email, pageable).map(this::toDTO);
         else
             users = userRepository.findAll(pageable).map(this::toDTO);
 
@@ -75,11 +75,12 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy user với id: " + userId));
 
-        user.setAge(dto.getAge());
+        user.setAge(dto.getAge() != null ? dto.getAge() : 0);
         user.setGender(dto.getGender());
         user.setOccupation(dto.getOccupation());
         user.setZipCode(dto.getZipCode());
         user.setEmail(dto.getEmail());
+        user.setUrlAvt(dto.getUrlAvt());
 
         return toDTO(userRepository.save(user));
     }
@@ -123,6 +124,8 @@ public class UserServiceImpl implements UserService {
         dto.setOccupation(user.getOccupation());
         dto.setZipCode(user.getZipCode());
         dto.setUrlAvt(user.getUrlAvt());
+        dto.setVip(user.isVip());
+        dto.setVipExpiration(user.getVipExpiration());
 
         return dto;
     }

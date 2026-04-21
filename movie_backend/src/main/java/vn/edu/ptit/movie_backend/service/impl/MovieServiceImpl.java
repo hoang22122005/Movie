@@ -10,11 +10,16 @@ import vn.edu.ptit.movie_backend.dto.PageResponse;
 import vn.edu.ptit.movie_backend.models.Genre;
 import vn.edu.ptit.movie_backend.models.MovieGenre;
 import vn.edu.ptit.movie_backend.models.MovieGenreId;
-import vn.edu.ptit.movie_backend.repository.GenreMovieRepository;
-import vn.edu.ptit.movie_backend.repository.GenreRepository;
 import vn.edu.ptit.movie_backend.repository.MovieRepository;
+import vn.edu.ptit.movie_backend.repository.GenreRepository;
+import vn.edu.ptit.movie_backend.repository.GenreMovieRepository;
+import vn.edu.ptit.movie_backend.repository.UserRepository;
+import vn.edu.ptit.movie_backend.repository.WatchedRepository;
 import vn.edu.ptit.movie_backend.service.MovieService;
 import vn.edu.ptit.movie_backend.models.Movie;
+import vn.edu.ptit.movie_backend.models.User;
+import vn.edu.ptit.movie_backend.models.Watched;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import java.util.Map;
@@ -30,6 +35,8 @@ public class MovieServiceImpl implements MovieService {
     private final GenreRepository genreRepository;
     private final RestClient.Builder restClientBuilder;
     private final RecommendationClient recommendationClient;
+    private final UserRepository userRepository;
+    private final WatchedRepository watchedRepository;
 
     @Override
     public MovieDTO getMovieById(Integer id) {
@@ -130,6 +137,24 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public void addToWatchedList(Integer userId, Integer movieId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy người dùng"));
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy phim"));
+
+        Watched watched = watchedRepository.findByUserAndMovie(user, movie)
+                .orElse(new Watched());
+
+        watched.setUser(user);
+        watched.setMovie(movie);
+        watched.setWatchedAt(LocalDateTime.now());
+        watched.setProgress(100);
+
+        watchedRepository.save(watched);
+    }
+
+    @Override
     public MovieDTO createMovie(MovieDTO dto, List<Integer> genreId) {
         if (dto.getTitle() == null || dto.getTitle().trim().isEmpty())
             throw new RuntimeException("Bạn chưa nhập tên phim");
@@ -203,5 +228,18 @@ public class MovieServiceImpl implements MovieService {
 
         dto.setGenres(getGenreNamesByMovieId(movie.getMoviesId()));
         return dto;
+    }
+
+    @Override
+    public PageResponse<MovieDTO> getTopRatedMovies(Integer minRatings, Pageable pageable) {
+        Page<MovieDTO> page = movieRepository.findTopRatedMovies(minRatings, pageable).map(this::toDTO);
+
+        return PageResponse.<MovieDTO>builder()
+                .content(page.getContent())
+                .pageSize(page.getSize())
+                .pageNumber(page.getNumber())
+                .totalElements(page.getTotalElements())
+                .totalPages(page.getTotalPages())
+                .build();
     }
 }

@@ -4,9 +4,13 @@ import { ArrowLeft, Star, Clock, Calendar, Send, Loader2, Edit2, Trash2, Crown, 
 import { useMovieDetail, useMovieComments } from "../features/movies/hooks/useMovieDetail";
 import { useCommentActions, useRateMovie, useViewCounter } from "../features/movies/hooks/useMovieActions";
 import { useRecommendations } from "../features/movies/hooks/useMovies";
+import HotStreamingSection from "../features/movies/components/HotStreamingSection";
+import TopRatedSection from "../features/movies/components/TopRatedSection";
+import { MovieOverlay } from "../features/movies/components/MoiveOverlay";
+import type { MovieResponse, CommentDTO } from "../types";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
-import type { CommentDTO } from "../types";
+import { AnimatePresence } from "motion/react";
 
 export default function WatchPage() {
     const { movieId } = useParams<{ movieId: string }>();
@@ -24,6 +28,7 @@ export default function WatchPage() {
     const { mutate: rateMovie } = useRateMovie(movieId || "");
     const { mutate: incrementView } = useViewCounter();
     const { data: recommendations } = useRecommendations();
+    const [selectedMovie, setSelectedMovie] = useState<MovieResponse | null>(null);
 
     const isAddingComment = postCommentMutation.isPending;
 
@@ -258,6 +263,20 @@ export default function WatchPage() {
                     </div>
                 </div>
             </div>
+
+            <div className="mt-20 pt-20 border-t border-white/5">
+                <HotStreamingSection onMovieClick={setSelectedMovie} />
+                <TopRatedSection onMovieClick={setSelectedMovie} />
+            </div>
+
+            <AnimatePresence>
+                {selectedMovie && (
+                    <MovieOverlay
+                        movie={selectedMovie}
+                        onClose={() => setSelectedMovie(null)}
+                    />
+                )}
+            </AnimatePresence>
         </div>
     );
 }

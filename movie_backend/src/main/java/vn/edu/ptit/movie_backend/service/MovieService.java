@@ -24,4 +24,8 @@ public interface MovieService {
     PageResponse<MovieDTO> getWatchedList(Integer userId, Pageable pageable);
 
     void incrementViewCount(Integer movieId);
+
+    void addToWatchedList(Integer userId, Integer movieId);
+
+    PageResponse<MovieDTO> getTopRatedMovies(Integer minRatings, Pageable pageable);
 }

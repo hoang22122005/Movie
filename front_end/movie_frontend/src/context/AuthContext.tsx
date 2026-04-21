@@ -9,6 +9,7 @@ interface AuthContextType {
     //khi gọi hàm này bắt buộc phải truyền vào là JwtReponse
     login: (data: JwtResponse) => Promise<void>;
     logout: () => Promise<void>;
+    updateUser: (newUser: UserDTO) => void;
     isLoading: boolean;
 }
 
@@ -65,8 +66,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         queryClient.clear(); // Xoá sạch bộ nhớ đệm
         setUser(null);
     }
+
+    const updateUser = (newUser: UserDTO) => {
+        setUser(newUser);
+    }
+
     return (
-        <AuthContext.Provider value={{ user, isAdmin, login, logout, isLoading }}>
+        <AuthContext.Provider value={{ user, isAdmin, login, logout, updateUser, isLoading }}>
             {children}
         </AuthContext.Provider>
     );

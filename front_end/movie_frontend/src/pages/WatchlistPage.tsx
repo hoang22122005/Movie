@@ -119,6 +119,7 @@ export default function WatchlistPage() {
                                     title={movie.title}
                                     genre={movie.genres.join(', ')}
                                     year={movie.releaseDate?.split('-')[0]}
+                                    isVip={movie.isVip}
                                     onClick={() => setSelectedMovie(movie)}
                                 />
                             ))}

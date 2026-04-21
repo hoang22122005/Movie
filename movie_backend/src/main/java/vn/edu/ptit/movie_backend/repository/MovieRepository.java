@@ -25,4 +25,7 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
 
         @Query("select distinct m from Movie m join Watched wa on wa.movie.moviesId = m.moviesId join User u on u.userId = wa.user.userId where u.userId = :userId")
         Page<Movie> findWatchedList(@Param("userId") Integer userId, Pageable pageable);
+
+        @Query("SELECT m FROM Movie m WHERE m.cntRating >= :minRatings ORDER BY m.avgRating DESC")
+        Page<Movie> findTopRatedMovies(@Param("minRatings") Integer minRatings, Pageable pageable);
 }

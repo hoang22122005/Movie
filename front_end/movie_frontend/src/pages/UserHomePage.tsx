@@ -3,6 +3,8 @@ import MovieCard from "../shared/MovieCard.tsx";
 import GenreCard from '../features/movies/components/GenreCard';
 import SpotlightBanner from '../features/movies/components/SpotlightBanner';
 import VideoCard from '../features/movies/components/VideoCard';
+import HotStreamingSection from '../features/movies/components/HotStreamingSection';
+import TopRatedSection from '../features/movies/components/TopRatedSection';
 import { usePublicMovies, useRecommendations, useWatchedList } from "../features/movies/hooks/useMovies";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -121,6 +123,9 @@ export default function App() {
                                 title={movie.title}
                                 genre={movie.genres.join(', ')}
                                 year={movie.releaseDate?.split('-')[0]}
+                                views={movie.viewCount}
+                                rating={movie.avgRating?.toFixed(1)}
+                                isVip={movie.isVip}
                                 onClick={() => setSelectedMovie(movie)}
                             />
                         ))}
@@ -134,27 +139,44 @@ export default function App() {
                     <span className="w-1.5 h-6 bg-amber-400 rounded-full" />
                     My Genres
                 </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div className="flex gap-4 overflow-x-auto pb-6 scrollbar-hide">
                     {[
-                        { id: 2, image: 'https://picsum.photos/seed/action/300/200', label: 'Action', color: 'bg-indigo-500/40' },
-                        { id: 16, image: 'https://picsum.photos/seed/scifi/300/200', label: 'Sci-Fi', color: 'bg-primary/40' },
-                        { id: 9, image: 'https://picsum.photos/seed/drama/300/200', label: 'Drama', color: 'bg-purple-500/40' },
-                        { id: 12, image: 'https://picsum.photos/seed/horror/300/200', label: 'Horror', color: 'bg-red-500/40' },
-                        { id: 6, image: 'https://picsum.photos/seed/comedy/300/200', label: 'Comedy', color: 'bg-yellow-500/40' },
-                        { id: 4, image: 'https://picsum.photos/seed/anime/300/200', label: 'Animation', color: 'bg-pink-500/40' }
+                        { id: 2, image: 'https://picsum.photos/seed/action/400/300', label: 'Action', color: 'bg-indigo-500/40' },
+                        { id: 3, image: 'https://picsum.photos/seed/adventure/400/300', label: 'Adventure', color: 'bg-green-500/40' },
+                        { id: 4, image: 'https://picsum.photos/seed/animation/400/300', label: 'Animation', color: 'bg-pink-500/40' },
+                        { id: 5, image: 'https://picsum.photos/seed/children/400/300', label: 'Children', color: 'bg-sky-500/40' },
+                        { id: 6, image: 'https://picsum.photos/seed/comedy/400/300', label: 'Comedy', color: 'bg-yellow-500/40' },
+                        { id: 7, image: 'https://picsum.photos/seed/crime/400/300', label: 'Crime', color: 'bg-slate-700/60' },
+                        { id: 8, image: 'https://picsum.photos/seed/documentary/400/300', label: 'Documentary', color: 'bg-blue-500/40' },
+                        { id: 9, image: 'https://picsum.photos/seed/drama/400/300', label: 'Drama', color: 'bg-purple-500/40' },
+                        { id: 10, image: 'https://picsum.photos/seed/fantasy/400/300', label: 'Fantasy', color: 'bg-emerald-500/40' },
+                        { id: 11, image: 'https://picsum.photos/seed/filmnoir/400/300', label: 'Film-Noir', color: 'bg-neutral-800/80' },
+                        { id: 12, image: 'https://picsum.photos/seed/horror/400/300', label: 'Horror', color: 'bg-red-500/40' },
+                        { id: 13, image: 'https://picsum.photos/seed/musical/400/300', label: 'Musical', color: 'bg-violet-500/40' },
+                        { id: 14, image: 'https://picsum.photos/seed/mystery/400/300', label: 'Mystery', color: 'bg-teal-500/40' },
+                        { id: 15, image: 'https://picsum.photos/seed/romance/400/300', label: 'Romance', color: 'bg-rose-500/40' },
+                        { id: 16, image: 'https://picsum.photos/seed/scifi/400/300', label: 'Sci-Fi', color: 'bg-primary/40' },
+                        { id: 17, image: 'https://picsum.photos/seed/thriller/400/300', label: 'Thriller', color: 'bg-orange-500/40' },
+                        { id: 18, image: 'https://picsum.photos/seed/war/400/300', label: 'War', color: 'bg-stone-500/40' },
+                        { id: 19, image: 'https://picsum.photos/seed/western/400/300', label: 'Western', color: 'bg-amber-700/50' }
                     ].map((genre, i) => (
-                        <GenreCard
-                            key={i}
-                            image={genre.image}
-                            label={genre.label}
-                            color={genre.color}
-                            onClick={() => navigate(`/browse?genreId=${genre.id}`)}
-                        />
+                        <div key={i} className="min-w-[240px]">
+                            <GenreCard
+                                image={genre.image}
+                                label={genre.label}
+                                color={genre.color}
+                                onClick={() => navigate(`/browse?genreId=${genre.id}`)}
+                            />
+                        </div>
                     ))}
                 </div>
             </section>
 
             <SpotlightBanner />
+
+            <HotStreamingSection onMovieClick={setSelectedMovie} />
+
+            <TopRatedSection onMovieClick={setSelectedMovie} />
 
             {/* Newly Added Section */}
             <section className="px-8 md:px-16 mb-24">
@@ -220,8 +242,10 @@ export default function App() {
                                 image={movie.posterUrl}
                                 title={movie.title}
                                 metadata={`${movie.genres?.join(' • ') || 'N/A'} • ${movie.duration}m`}
-                                rating={movie.viewCount?.toString() || "0"}
+                                rating={movie.avgRating?.toFixed(1) || "0.0"}
+                                views={movie.viewCount}
                                 badge={movie.viewCount > 100 ? "POPULAR" : "WATCHED"}
+                                isVip={movie.isVip}
                                 onClick={() => setSelectedMovie(movie)}
                             />
                         ))

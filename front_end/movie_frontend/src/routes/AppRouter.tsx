@@ -25,6 +25,7 @@ function NotFoundPage() {
 
 import RequireAdmin from "./RequireAdmin";
 import AdminPage from "../pages/AdminPage";
+import PaymentCallback from "../pages/PaymentCallback";
 
 export default function AppRouter() {
     return (
@@ -60,6 +61,9 @@ export default function AppRouter() {
                         <Route path="/profile" element={<ProfilePage />} />
                         <Route path="/vip-upgrade" element={<VipUpgrade />} />
                     </Route>
+
+                    {/* Payment callback không cần auth - VNPay redirect thẳng về đây */}
+                    <Route path="/payment-callback" element={<PaymentCallback />} />
 
                     <Route element={<RequireAdmin />}>
                         <Route path="/admin" element={<AdminPage />} />

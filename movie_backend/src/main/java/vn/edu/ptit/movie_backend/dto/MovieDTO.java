@@ -1,6 +1,6 @@
 package vn.edu.ptit.movie_backend.dto;
 
-import jakarta.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,5 +25,6 @@ public class MovieDTO {
     private Double predictedRating;
     private float avgRating;
     private Integer cntRating;
+    @JsonProperty("isVip")
     private boolean isVip;
 }

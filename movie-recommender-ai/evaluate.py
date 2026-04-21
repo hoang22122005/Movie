@@ -5,7 +5,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.model_selection import train_test_split
 from sentence_transformers import SentenceTransformer
 
-DB_URL = "postgresql+psycopg2://postgres:E,!kA%40x65J?377f@db.matjcxyattaokehxibbk.supabase.co:5432/postgres"
+DB_URL = "postgresql+psycopg2://postgres.matjcxyattaokehxibbk:E%2C%21kA%40x65J%3F377f@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres"
 
 # --- TRONG SO CO DINH ---
 FIXED_ALPHA = 0.7  # 70% CF, 30% CB

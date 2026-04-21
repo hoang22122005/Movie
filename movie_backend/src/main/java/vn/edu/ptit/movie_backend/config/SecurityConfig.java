@@ -1,6 +1,7 @@
 package vn.edu.ptit.movie_backend.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -19,6 +20,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import vn.edu.ptit.movie_backend.security.JwtAuthenticationFilter;
 
+import java.util.Arrays;
 import java.util.List;
 
 // @Configuration: Đánh dấu class này là nơi định nghĩa các Bean (đối tượng cấu hình) cho Spring Boot
@@ -34,6 +36,9 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Value("${cors.allowed-origins}")
+    private String allowedOrigins;
 
     // SecurityFilterChain: Trái tim của cấu hình, nơi định nghĩa các quy định ra
     // vào cổng API
@@ -53,6 +58,7 @@ public class SecurityConfig {
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/public/**").permitAll()
+                        .requestMatchers("/api/payment/vnpay-callback").permitAll()
                         .requestMatchers("/api/rating").hasAnyRole("USER", "ADMIN")
 
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
@@ -100,12 +106,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         // Cho phép các nguồn (Origin) cụ thể gọi API (React 3000, Vite 5173, và LAN IP)
-        configuration.setAllowedOrigins(List.of(
-                "http://localhost:3000",
-                "http://localhost:5173",
-                "http://127.0.0.1:5173",
-                "http://172.20.10.4:5173",
-                "http://172.17.43.4:5173"));
+        configuration.setAllowedOrigins(Arrays.asList(allowedOrigins.split(",")));
         // Cho phép các phương thức HTTP
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         // Cho phép các Header quan trọng (đặc biệt là Authorization cho JWT)

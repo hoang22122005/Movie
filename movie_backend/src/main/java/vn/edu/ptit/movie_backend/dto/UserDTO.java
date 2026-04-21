@@ -1,9 +1,9 @@
 package vn.edu.ptit.movie_backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 
 @Data
@@ -20,4 +20,9 @@ public class UserDTO {
     private String occupation;
     private String zipCode;
     private String urlAvt;
+
+    @JsonProperty("isVip")
+    private boolean isVip;
+
+    private LocalDateTime vipExpiration;
 }

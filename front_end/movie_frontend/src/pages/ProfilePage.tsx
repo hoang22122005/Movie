@@ -1,35 +1,28 @@
 import { useState, useEffect } from "react";
-import { User as UserIcon, Mail, Shield, Loader2, LogOut, Camera, Settings, Bell, CreditCard, Briefcase, Users } from "lucide-react";
+import { User as UserIcon, Mail, Shield, Loader2, LogOut, Camera, Settings, Bell, CreditCard, Briefcase, Users, Link as LinkIcon } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { User_service } from "../features/auth/services/user_service";
+import { useProfile, useUpdateProfile, useChangePassword } from "../features/user-profile/hooks/useUser";
 import { useToast } from "../context/ToastContext";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function ProfilePage() {
     const { toast } = useToast();
-    const { logout } = useAuth();
+    const { logout, updateUser } = useAuth();
     const navigate = useNavigate();
-    const queryClient = useQueryClient();
 
     const [showEditModal, setShowEditModal] = useState(false);
     const [showPasswordModal, setShowPasswordModal] = useState(false);
 
     // Profile Data
-    const { data: profile, isLoading } = useQuery({
-        queryKey: ["profile"],
-        queryFn: async () => {
-            const resp = await User_service.getProfile();
-            return resp.data.data;
-        }
-    });
+    const { data: profile, isLoading } = useProfile();
 
     // Form states
     const [profileAge, setProfileAge] = useState<number>(0);
     const [profileEmail, setProfileEmail] = useState("");
     const [profileGender, setProfileGender] = useState("");
     const [profileOccupation, setProfileOccupation] = useState("");
+    const [profileAvatar, setProfileAvatar] = useState("");
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
@@ -41,31 +34,39 @@ export default function ProfilePage() {
             setProfileEmail(profile.email);
             setProfileGender(profile.gender || "");
             setProfileOccupation(profile.occupation || "");
+            setProfileAvatar(profile.urlAvt || "");
         }
     }, [profile]);
 
     // Mutations
-    const updateProfileMutation = useMutation({
-        mutationFn: (data: any) => User_service.updateProfile(data),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["profile"] });
-            toast("Identity synchronized", "success");
-            setShowEditModal(false);
-        },
-        onError: () => toast("Sync failed", "error")
-    });
+    const updateProfileMutation = useUpdateProfile();
+    const changePasswordMutation = useChangePassword();
 
-    const changePasswordMutation = useMutation({
-        mutationFn: (data: any) => User_service.changePassword(data),
-        onSuccess: () => {
-            toast("Protocol updated", "success");
-            setShowPasswordModal(false);
-            setOldPassword("");
-            setNewPassword("");
-            setConfirmPassword("");
-        },
-        onError: (err: any) => toast(err?.response?.data?.message || "Protocol mismatch", "error")
-    });
+    // Callbacks for mutations
+    const handleUpdateProfile = (data: any) => {
+        updateProfileMutation.mutate(data, {
+            onSuccess: (response) => {
+                const newUser = response.data.data;
+                updateUser(newUser);
+                toast("Identity synchronized", "success");
+                setShowEditModal(false);
+            },
+            onError: () => toast("Sync failed", "error")
+        });
+    };
+
+    const handleChangePassword = (data: any) => {
+        changePasswordMutation.mutate(data, {
+            onSuccess: () => {
+                toast("Protocol updated", "success");
+                setShowPasswordModal(false);
+                setOldPassword("");
+                setNewPassword("");
+                setConfirmPassword("");
+            },
+            onError: (err: any) => toast(err?.response?.data?.message || "Protocol mismatch", "error")
+        });
+    };
 
     if (isLoading) {
         return (
@@ -284,11 +285,12 @@ export default function ProfilePage() {
                             <form
                                 onSubmit={(e) => {
                                     e.preventDefault();
-                                    updateProfileMutation.mutate({
+                                    handleUpdateProfile({
                                         age: profileAge,
                                         email: profileEmail,
                                         gender: profileGender,
-                                        occupation: profileOccupation
+                                        occupation: profileOccupation,
+                                        urlAvt: profileAvatar
                                     });
                                 }}
                                 className="grid grid-cols-1 md:grid-cols-2 gap-6"
@@ -346,6 +348,19 @@ export default function ProfilePage() {
                                         />
                                     </div>
                                 </div>
+                                <div className="space-y-2 md:col-span-2">
+                                    <label className="text-[10px] text-outline uppercase font-bold tracking-widest pl-1">Avatar Resource Link</label>
+                                    <div className="relative">
+                                        <LinkIcon className="absolute left-4 top-1/2 -translate-y-1/2 text-primary" size={16} />
+                                        <input
+                                            type="text"
+                                            value={profileAvatar}
+                                            placeholder="https://example.com/photo.jpg"
+                                            onChange={(e) => setProfileAvatar(e.target.value)}
+                                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-white outline-none focus:ring-1 focus:ring-primary"
+                                        />
+                                    </div>
+                                </div>
                                 <div className="flex gap-4 pt-4 md:col-span-2">
                                     <button type="button" onClick={() => setShowEditModal(false)} className="flex-1 py-4 bg-white/5 text-xs font-black uppercase rounded-2xl">Cancel</button>
                                     <button type="submit" disabled={updateProfileMutation.isPending} className="flex-1 py-4 bg-primary text-black text-xs font-black uppercase rounded-2xl flex items-center justify-center gap-2">
@@ -376,7 +391,7 @@ export default function ProfilePage() {
                                 <Shield className="text-primary" size={24} />
                                 Security protocol
                             </h3>
-                            <form onSubmit={(e) => { e.preventDefault(); if (newPassword !== confirmPassword) { toast("Mismatch!", "error"); return; } changePasswordMutation.mutate({ oldPassword, newPassword }); }} className="space-y-6">
+                            <form onSubmit={(e) => { e.preventDefault(); if (newPassword !== confirmPassword) { toast("Mismatch!", "error"); return; } handleChangePassword({ oldPassword, newPassword }); }} className="space-y-6">
                                 <div className="space-y-2">
                                     <label className="text-[10px] text-outline uppercase font-bold tracking-widest pl-1">Current Code</label>
                                     <input

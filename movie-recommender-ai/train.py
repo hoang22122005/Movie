@@ -7,7 +7,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sentence_transformers import SentenceTransformer
 
 # --- SETTINGS / DB CONNECTION ---
-DB_URL = "postgresql+psycopg2://postgres:E,!kA%40x65J?377f@db.matjcxyattaokehxibbk.supabase.co:5432/postgres"
+DB_URL = "postgresql+psycopg2://postgres.matjcxyattaokehxibbk:E%2C%21kA%40x65J%3F377f@aws-1-ap-southeast-1.pooler.supabase.com:6543/postgres"
 
 # --- THUẬT TOÁN WEIGHTS (ĐỒNG BỘ TỪ EVALUATE.PY) ---
 FIXED_ALPHA = 0.7  # 70% CF, 30% CB

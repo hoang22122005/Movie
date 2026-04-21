@@ -33,3 +33,25 @@ export const useWatchedList = (params: { page: number; size: number }) => {
         },
     });
 };
+
+export const useHotMovies = (size: number = 10) => {
+    return useQuery({
+        queryKey: ["movies", "hot", size],
+        queryFn: async () => {
+            const res = await movieService.getHotMovies(size);
+            if (!res.data.success) throw new Error(res.data.message);
+            return res.data.data;
+        },
+    });
+};
+
+export const useTopRatedMovies = (size: number = 10) => {
+    return useQuery({
+        queryKey: ["movies", "top-rated", size],
+        queryFn: async () => {
+            const res = await movieService.getTopRatedMovies(size);
+            if (!res.data.success) throw new Error(res.data.message);
+            return res.data.data;
+        },
+    });
+};
