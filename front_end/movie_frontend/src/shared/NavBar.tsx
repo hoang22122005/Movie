@@ -110,7 +110,7 @@ export default function Navbar() {
                         className="hidden md:flex items-center gap-2 px-5 h-11 rounded-xl bg-primary text-black font-bold uppercase text-[11px] tracking-widest hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(212,168,83,0.3)]"
                     >
                         <Crown size={14} fill="currentColor" />
-                        UPGRADE VIP
+                        NÂNG CẤP VIP
                     </button>
                 )}
 

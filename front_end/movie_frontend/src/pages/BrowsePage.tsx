@@ -8,25 +8,25 @@ import { MovieOverlay } from "../features/movies/components/MoiveOverlay";
 import type { MovieResponse } from "../types";
 
 const CATEGORIES = [
-    { id: 0, name: "All Genres" },
-    { id: 2, name: "Action" },
-    { id: 3, name: "Adventure" },
-    { id: 4, name: "Animation" },
-    { id: 5, name: "Children's" },
-    { id: 6, name: "Comedy" },
-    { id: 7, name: "Crime" },
-    { id: 8, name: "Documentary" },
-    { id: 9, name: "Drama" },
-    { id: 10, name: "Fantasy" },
-    { id: 11, name: "Film-Noir" },
-    { id: 12, name: "Horror" },
-    { id: 13, name: "Musical" },
-    { id: 14, name: "Mystery" },
-    { id: 15, name: "Romance" },
-    { id: 16, name: "Sci-Fi" },
-    { id: 17, name: "Thriller" },
-    { id: 18, name: "War" },
-    { id: 19, name: "Western" }
+    { id: 0, name: "Tất cả thể loại" },
+    { id: 2, name: "Hành động" },
+    { id: 3, name: "Phiêu lưu" },
+    { id: 4, name: "Hoạt hình" },
+    { id: 5, name: "Trẻ em" },
+    { id: 6, name: "Hài kịch" },
+    { id: 7, name: "Tội phạm" },
+    { id: 8, name: "Phim tài liệu" },
+    { id: 9, name: "Kịch" },
+    { id: 10, name: "Giả tưởng" },
+    { id: 11, name: "Phim đen" },
+    { id: 12, name: "Kinh dị" },
+    { id: 13, name: "Nhạc kịch" },
+    { id: 14, name: "Bí ẩn" },
+    { id: 15, name: "Lãng mạn" },
+    { id: 16, name: "Viễn tưởng" },
+    { id: 17, name: "Giật gân" },
+    { id: 18, name: "Chiến tranh" },
+    { id: 19, name: "Miền Tây" }
 ];
 
 export default function BrowsePage() {
@@ -109,12 +109,12 @@ export default function BrowsePage() {
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div>
                         <h1 className="text-4xl font-black tracking-tighter text-white uppercase mb-2">
-                            Browse <span className="text-primary">Library</span>
+                            Khám phá <span className="text-primary">Thư viện</span>
                         </h1>
                         <p className="text-neutral-500 text-sm font-medium">
                             {searchTerm || selectedGenreId
-                                ? `Showing results for ${searchTerm ? `"${searchTerm}"` : ""} ${selectedGenreId ? `in ${CATEGORIES.find(c => c.id === selectedGenreId)?.name}` : ""}`
-                                : "Explore our vast collection of cinematic masterpieces"}
+                                ? `Hiển thị kết quả cho ${searchTerm ? `"${searchTerm}"` : ""} ${selectedGenreId ? `trong ${CATEGORIES.find(c => c.id === selectedGenreId)?.name}` : ""}`
+                                : "Khám phá bộ sưu tập khổng lồ các kiệt tác điện ảnh của chúng tôi"}
                         </p>
                     </div>
 
@@ -124,7 +124,7 @@ export default function BrowsePage() {
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-500 group-focus-within:text-primary transition-colors" size={20} />
                             <input
                                 type="text"
-                                placeholder="Search titles, actors, genres..."
+                                placeholder="Tìm kiếm tựa phim, diễn viên, thể loại..."
                                 className="w-full bg-surface-light/40 border border-white/5 rounded-2xl py-4 pl-12 pr-6 text-white placeholder:text-neutral-600 focus:ring-2 focus:ring-primary/20 focus:border-primary/50 outline-none transition-all backdrop-blur-md"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -139,7 +139,7 @@ export default function BrowsePage() {
                             >
                                 <SlidersHorizontal size={20} className={isFilterOpen ? 'text-primary' : 'text-neutral-500 group-hover:text-primary transition-colors'} />
                                 <span className="hidden sm:inline font-bold text-xs uppercase tracking-widest">
-                                    {selectedGenreId ? CATEGORIES.find(c => c.id === selectedGenreId)?.name : "Filters"}
+                                    {selectedGenreId ? CATEGORIES.find(c => c.id === selectedGenreId)?.name : "Bộ lọc"}
                                 </span>
                                 <ChevronDown size={14} className={`transition-transform duration-300 ${isFilterOpen ? 'rotate-180' : ''}`} />
                             </button>
@@ -177,9 +177,9 @@ export default function BrowsePage() {
             <div className="max-w-7xl mx-auto">
                 {error ? (
                     <div className="py-20 text-center">
-                        <p className="text-red-400 font-bold mb-4">Error: {error?.message}</p>
+                        <p className="text-red-400 font-bold mb-4">Lỗi: {error?.message}</p>
                         <button className="px-6 py-2 bg-primary/10 text-primary rounded-lg border border-primary/20 hover:bg-primary/20 transition-all font-bold text-sm uppercase">
-                            Retry
+                            Thử lại
                         </button>
                     </div>
                 ) : isLoading ? (
@@ -233,9 +233,9 @@ export default function BrowsePage() {
                         <div className="w-20 h-20 bg-surface-light rounded-full flex items-center justify-center mx-auto mb-6">
                             <Search size={32} className="text-neutral-700" />
                         </div>
-                        <h3 className="text-xl font-bold text-white mb-2 tracking-tight">No results found</h3>
+                        <h3 className="text-xl font-bold text-white mb-2 tracking-tight">Không tìm thấy kết quả</h3>
                         <p className="text-neutral-500 max-w-xs mx-auto text-sm leading-relaxed">
-                            We couldn't find any movies matching "{searchTerm}". Try different keywords or check for typos.
+                            Chúng tôi không tìm thấy bộ phim nào phù hợp với "{searchTerm}". Hãy thử từ khóa khác hoặc kiểm tra lại chính tả.
                         </p>
                     </div>
                 )}

@@ -50,23 +50,23 @@ export default function ProfilePage() {
             onSuccess: (response) => {
                 const newUser = response.data.data;
                 updateUser(newUser);
-                toast("Identity synchronized", "success");
+                toast("Thông tin đã được đồng bộ", "success");
                 setShowEditModal(false);
             },
-            onError: () => toast("Sync failed", "error")
+            onError: () => toast("Đồng bộ thất bại", "error")
         });
     };
 
     const handleChangePassword = (data: any) => {
         changePasswordMutation.mutate(data, {
             onSuccess: () => {
-                toast("Protocol updated", "success");
+                toast("Mật khẩu đã được cập nhật", "success");
                 setShowPasswordModal(false);
                 setOldPassword("");
                 setNewPassword("");
                 setConfirmPassword("");
             },
-            onError: (err: any) => toast(err?.response?.data?.message || "Protocol mismatch", "error")
+            onError: (err: any) => toast(err?.response?.data?.message || "Mật khẩu không khớp hoặc có lỗi", "error")
         });
     };
 
@@ -121,9 +121,9 @@ export default function ProfilePage() {
                         >
                             <div className="flex items-center gap-3 mb-2">
                                 <span className={`px-3 py-1 ${profile?.isVip ? 'bg-gradient-to-r from-amber-500 to-yellow-400 text-black' : 'bg-primary text-black'} text-[10px] font-black uppercase tracking-widest rounded-full`}>
-                                    {profile?.isVip ? 'VIP Member' : 'Standard Member'}
+                                    {profile?.isVip ? 'Thành viên VIP' : 'Thành viên thường'}
                                 </span>
-                                <span className="text-outline text-[10px] uppercase tracking-[0.2em] font-bold">Identity Confirmed</span>
+                                <span className="text-outline text-[10px] uppercase tracking-[0.2em] font-bold">Danh tính đã xác minh</span>
                             </div>
                             <h1 className="text-6xl md:text-8xl font-black italic tracking-tighter uppercase mb-6 leading-none">
                                 {profile?.username}<span className="text-primary">.</span>
@@ -133,19 +133,19 @@ export default function ProfilePage() {
                                     onClick={() => setShowEditModal(true)}
                                     className="px-8 py-3 bg-white/5 border border-white/10 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-white/10 transition-all flex items-center gap-2"
                                 >
-                                    <Settings size={16} /> Edit Profile
+                                    <Settings size={16} /> Chỉnh sửa hồ sơ
                                 </button>
                                 <button
                                     onClick={() => setShowPasswordModal(true)}
                                     className="px-8 py-3 bg-white/5 border border-white/10 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-white/10 transition-all flex items-center gap-2"
                                 >
-                                    <Shield size={16} /> Security
+                                    <Shield size={16} /> Bảo mật
                                 </button>
                                 <button
                                     onClick={() => { logout(); navigate("/login"); }}
                                     className="px-8 py-3 bg-red-500/10 border border-red-500/20 rounded-2xl text-xs font-black uppercase tracking-widest text-red-500 hover:bg-red-500/20 transition-all flex items-center gap-2"
                                 >
-                                    <LogOut size={16} /> Terminate
+                                    <LogOut size={16} /> Đăng xuất
                                 </button>
                             </div>
                         </motion.div>
@@ -162,10 +162,10 @@ export default function ProfilePage() {
                             transition={{ delay: 0.2 }}
                             className="p-10 rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-xl group hover:border-primary/50 transition-colors"
                         >
-                            <h3 className="text-neutral-500 text-xs font-bold uppercase tracking-[0.2em] mb-10">Cinema Experience</h3>
+                            <h3 className="text-neutral-500 text-xs font-bold uppercase tracking-[0.2em] mb-10">Trải nghiệm điện ảnh</h3>
                             <div className="flex items-end gap-1">
                                 <span className="text-7xl font-black italic leading-none">{watchlistData?.totalElements || 0}</span>
-                                <span className="text-xs font-bold text-primary uppercase pb-2">Movies in List</span>
+                                <span className="text-xs font-bold text-primary uppercase pb-2">Phim đã lưu</span>
                             </div>
                         </motion.div>
 
@@ -175,10 +175,10 @@ export default function ProfilePage() {
                             transition={{ delay: 0.3 }}
                             className="p-10 rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-xl group hover:border-primary/50 transition-colors"
                         >
-                            <h3 className="text-neutral-500 text-xs font-bold uppercase tracking-[0.2em] mb-10">Community Voice</h3>
+                            <h3 className="text-neutral-500 text-xs font-bold uppercase tracking-[0.2em] mb-10">Đóng góp cộng đồng</h3>
                             <div className="flex items-end gap-1">
                                 <span className="text-7xl font-black italic leading-none">12</span>
-                                <span className="text-xs font-bold text-primary uppercase pb-2">Comments Shared</span>
+                                <span className="text-xs font-bold text-primary uppercase pb-2">Bình luận</span>
                             </div>
                         </motion.div>
 
@@ -207,7 +207,7 @@ export default function ProfilePage() {
                                         <Users size={20} />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] text-outline uppercase font-bold tracking-widest">Gender</p>
+                                        <p className="text-[10px] text-outline uppercase font-bold tracking-widest">Giới tính</p>
                                         <p className="text-sm font-bold">{profile?.gender || "NA"}</p>
                                     </div>
                                 </div>
@@ -216,8 +216,8 @@ export default function ProfilePage() {
                                         <Briefcase size={20} />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] text-outline uppercase font-bold tracking-widest">Occupation</p>
-                                        <p className="text-sm font-bold truncate max-w-[100px]">{profile?.occupation || "Unknown"}</p>
+                                        <p className="text-[10px] text-outline uppercase font-bold tracking-widest">Nghề nghiệp</p>
+                                        <p className="text-sm font-bold truncate max-w-[100px]">{profile?.occupation || "Không rõ"}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-4">
@@ -225,7 +225,7 @@ export default function ProfilePage() {
                                         <UserIcon size={20} />
                                     </div>
                                     <div>
-                                        <p className="text-[10px] text-outline uppercase font-bold tracking-widest">Age</p>
+                                        <p className="text-[10px] text-outline uppercase font-bold tracking-widest">Tuổi</p>
                                         <p className="text-sm font-bold">{profile?.age || "0"}</p>
                                     </div>
                                 </div>

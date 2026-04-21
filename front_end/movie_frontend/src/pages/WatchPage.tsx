@@ -43,17 +43,17 @@ export default function WatchPage() {
         try {
             await postCommentMutation.mutateAsync({ content: newComment, movieId: Number(movieId) });
             setNewComment("");
-            toast("Comment posted!", "success");
+            toast("Đã gửi bình luận!", "success");
         } catch (err) {
-            toast("Failed to post comment", "error");
+            toast("Không thể gửi bình luận", "error");
         }
     };
 
     const handleRate = (value: number) => {
         setUserRating(value);
         rateMovie(value, {
-            onSuccess: () => toast("Rating updated!", "success"),
-            onError: () => toast("Failed to rate", "error")
+            onSuccess: () => toast("Đã cập nhật đánh giá!", "success"),
+            onError: () => toast("Lỗi khi đánh giá", "error")
         });
     };
 
@@ -62,7 +62,7 @@ export default function WatchPage() {
             <div className="min-h-screen bg-black flex items-center justify-center">
                 <div className="flex flex-col items-center gap-4">
                     <div className="w-16 h-16 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
-                    <p className="text-primary font-bold animate-pulse uppercase tracking-[0.3em] text-xs">Loading Experience...</p>
+                    <p className="text-primary font-bold animate-pulse uppercase tracking-[0.3em] text-xs">Đang tải trải nghiệm...</p>
                 </div>
             </div>
         );
@@ -71,8 +71,8 @@ export default function WatchPage() {
     if (error || !movie) {
         return (
             <div className="min-h-screen bg-surface flex flex-col items-center justify-center p-6 text-center">
-                <h2 className="text-4xl font-black text-white mb-4 uppercase italic">Feature Not Found</h2>
-                <button onClick={() => navigate(-1)} className="px-10 py-4 bg-primary text-black font-black rounded-2xl uppercase tracking-widest text-sm">Back</button>
+                <h2 className="text-4xl font-black text-white mb-4 uppercase italic">Không tìm thấy phim</h2>
+                <button onClick={() => navigate(-1)} className="px-10 py-4 bg-primary text-black font-black rounded-2xl uppercase tracking-widest text-sm">Quay lại</button>
             </div>
         );
     }
@@ -84,16 +84,16 @@ export default function WatchPage() {
                 <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mb-8 border border-primary/20">
                     <Lock className="text-primary" size={40} />
                 </div>
-                <h2 className="text-4xl font-black text-white mb-4 uppercase italic tracking-tighter">VIP Access Required</h2>
-                <p className="text-neutral-400 max-w-md mb-10">This cinematic masterpiece is reserved for our VIP members. Upgrade now to unlock the full library.</p>
+                <h2 className="text-4xl font-black text-white mb-4 uppercase italic tracking-tighter">Yêu cầu quyền truy cập VIP</h2>
+                <p className="text-neutral-400 max-w-md mb-10">Kiệt tác điện ảnh này chỉ dành riêng cho thành viên VIP. Hãy nâng cấp ngay để mở khóa toàn bộ thư viện.</p>
                 <div className="flex flex-col sm:flex-row gap-4">
                     <button
                         onClick={() => navigate("/vip-upgrade")}
                         className="px-10 py-4 glossy-gradient text-black font-black rounded-2xl uppercase tracking-widest text-sm flex items-center gap-2"
                     >
-                        <Crown size={18} /> Upgrade to VIP
+                        <Crown size={18} /> Nâng cấp VIP ngay
                     </button>
-                    <button onClick={() => navigate(-1)} className="px-10 py-4 bg-white/5 text-white border border-white/10 font-black rounded-2xl uppercase tracking-widest text-sm">Maybe Later</button>
+                    <button onClick={() => navigate(-1)} className="px-10 py-4 bg-white/5 text-white border border-white/10 font-black rounded-2xl uppercase tracking-widest text-sm">Để sau</button>
                 </div>
             </div>
         );
@@ -101,8 +101,42 @@ export default function WatchPage() {
 
     const getEmbedUrl = (url: string) => {
         if (!url) return "";
-        if (url.includes("youtube.com/watch?v=")) return url.replace("watch?v=", "embed/");
-        if (url.includes("youtu.be/")) return url.replace("youtu.be/", "youtube.com/embed/");
+        try {
+            // YouTube handling
+            if (url.includes("youtube.com") || url.includes("youtu.be")) {
+                let videoId = "";
+                if (url.includes("v=")) {
+                    videoId = url.split("v=")[1].split("&")[0];
+                } else if (url.includes("youtu.be/")) {
+                    videoId = url.split("youtu.be/")[1].split("?")[0];
+                } else if (url.includes("youtube.com/embed/")) {
+                    videoId = url.split("youtube.com/embed/")[1].split("?")[0];
+                }
+                if (videoId) return `https://www.youtube.com/embed/${videoId}`;
+            }
+
+            // IMDb handling
+            if (url.includes("imdb.com/video/")) {
+                const parts = url.split("/video/");
+                if (parts.length > 1) {
+                    const videoId = parts[1].split("/")[0].split("?")[0];
+                    return `https://www.imdb.com/video/imdb/${videoId}/imdb/embed`;
+                }
+            }
+
+            // Thiaphim.net handling
+            if (url.includes("thiaphim.net")) {
+                const parts = url.split(".");
+                if (parts.length > 1) {
+                    const id = parts[parts.length - 1].split("/")[0].split("?")[0];
+                    if (!isNaN(Number(id))) {
+                        return `https://api.thiaphim.net/embed/${id}`;
+                    }
+                }
+            }
+        } catch (e) {
+            console.error("Invalid Trailer URL", e);
+        }
         return url;
     };
 
@@ -161,13 +195,13 @@ export default function WatchPage() {
                         </div>
 
                         <div className="border-t border-white/5 pt-12">
-                            <h3 className="text-2xl font-black text-white uppercase tracking-tighter italic mb-10">Audience Reactions ({movie.viewCount || 0} views)</h3>
+                            <h3 className="text-2xl font-black text-white uppercase tracking-tighter italic mb-10">Phản hồi của khán giả ({movie.viewCount || 0} lượt xem)</h3>
 
                             {/* Input Field */}
                             <div className="relative mb-12">
                                 <input
                                     className="w-full bg-white/5 border border-white/10 rounded-2xl py-6 px-8 text-white placeholder:text-neutral-600 focus:ring-1 focus:ring-primary outline-none transition-all pr-20"
-                                    placeholder="Add your public reaction..."
+                                    placeholder="Thêm phản hồi công khai của bạn..."
                                     value={newComment}
                                     onChange={(e) => setNewComment(e.target.value)}
                                     onKeyDown={(e) => e.key === 'Enter' && handleSendComment()}
@@ -217,17 +251,17 @@ export default function WatchPage() {
                                                             onChange={(e) => setEditContent(e.target.value)}
                                                         />
                                                         <div className="flex justify-end gap-3">
-                                                            <button onClick={() => setEditingId(null)} className="text-xs text-neutral-500 hover:text-white uppercase font-black">Cancel</button>
+                                                            <button onClick={() => setEditingId(null)} className="text-xs text-neutral-500 hover:text-white uppercase font-black">Hủy</button>
                                                             <button onClick={async () => {
                                                                 if (!editContent.trim()) return;
                                                                 try {
                                                                     await updateCommentMutation.mutateAsync({ commentId: c.commentId, content: editContent, movieId: Number(movieId) });
                                                                     setEditingId(null);
-                                                                    toast("Comment updated!", "success");
+                                                                    toast("Đã cập nhật bình luận!", "success");
                                                                 } catch (err) {
-                                                                    toast("Failed to update", "error");
+                                                                    toast("Cập nhật thất bại", "error");
                                                                 }
-                                                            }} className="bg-primary text-black px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest">Update</button>
+                                                            }} className="bg-primary text-black px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest">Cập nhật</button>
                                                         </div>
                                                     </div>
                                                 ) : (
@@ -245,7 +279,7 @@ export default function WatchPage() {
 
                     <div className="flex flex-col gap-10">
                         <div className="flex items-center justify-between">
-                            <h3 className="text-xl font-black text-white uppercase italic">Up Next</h3>
+                            <h3 className="text-xl font-black text-white uppercase italic">Tiếp theo</h3>
                         </div>
                         <div className="flex flex-col gap-8">
                             {recommendations?.slice(0, 4).map((recMovie) => (

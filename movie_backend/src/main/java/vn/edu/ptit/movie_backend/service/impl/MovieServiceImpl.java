@@ -80,7 +80,12 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public MovieDTO updateMovie(Integer movieId, MovieDTO dto) {
         Movie movie = movieRepository.findById(movieId)
-                .orElseThrow(() -> new RuntimeException("Không tìm thấy movie có id là" + movieId));
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy movie có id là " + movieId));
+
+        if (dto.getTitle() != null)
+            movie.setTitle(dto.getTitle());
+        if (dto.getReleaseDate() != null)
+            movie.setReleaseDate(dto.getReleaseDate());
         if (dto.getPosterUrl() != null)
             movie.setPosterUrl(dto.getPosterUrl());
         if (dto.getTrailerUrl() != null)
@@ -91,7 +96,21 @@ public class MovieServiceImpl implements MovieService {
             movie.setDuration(dto.getDuration());
         if (dto.getDescription() != null)
             movie.setDescription(dto.getDescription());
-        return toDTO(movieRepository.save(movie));
+        movie.setVip(dto.isVip());
+
+        movieRepository.save(movie);
+
+        // Update genres
+        if (dto.getGenresId() != null) {
+            // Delete old associations
+            List<MovieGenre> oldGenres = genreMovieRepository.findByMovie_MoviesId(movieId);
+            genreMovieRepository.deleteAll(oldGenres);
+
+            // Save new associations
+            saveGenre(movie, dto.getGenresId());
+        }
+
+        return toDTO(movie);
     }
 
     @Override

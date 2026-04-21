@@ -60,12 +60,12 @@ const MovieForm: React.FC<MovieFormProps> = ({ movie, onSubmit, onCancel, isLoad
 
                 <h2 className="text-2xl font-bold mb-6 text-white flex items-center gap-3">
                     <span className="w-1.5 h-8 bg-cyan-400 rounded-full" />
-                    {movie ? "Edit Movie" : "Add New Movie"}
+                    {movie ? "Sửa phim" : "Thêm phim mới"}
                 </h2>
 
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-400">Movie Title</label>
+                        <label className="text-sm font-medium text-gray-400">Tên phim</label>
                         <input
                             type="text"
                             name="title"
@@ -77,7 +77,7 @@ const MovieForm: React.FC<MovieFormProps> = ({ movie, onSubmit, onCancel, isLoad
                         />
                     </div>
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-400">Director</label>
+                        <label className="text-sm font-medium text-gray-400">Đạo diễn</label>
                         <input
                             type="text"
                             name="director"
@@ -88,18 +88,18 @@ const MovieForm: React.FC<MovieFormProps> = ({ movie, onSubmit, onCancel, isLoad
                         />
                     </div>
                     <div className="space-y-2 md:col-span-2">
-                        <label className="text-sm font-medium text-gray-400">Description</label>
+                        <label className="text-sm font-medium text-gray-400">Mô tả</label>
                         <textarea
                             name="description"
                             value={formData.description}
                             onChange={handleChange}
                             rows={3}
                             className="w-full bg-[#0B0B0B] border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-400/50 transition-all resize-none"
-                            placeholder="Movie description..."
+                            placeholder="Mô tả phim..."
                         />
                     </div>
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-400">Duration (min)</label>
+                        <label className="text-sm font-medium text-gray-400">Thời lượng (phút)</label>
                         <input
                             type="number"
                             name="duration"
@@ -109,7 +109,7 @@ const MovieForm: React.FC<MovieFormProps> = ({ movie, onSubmit, onCancel, isLoad
                         />
                     </div>
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-400">Release Date</label>
+                        <label className="text-sm font-medium text-gray-400">Ngày phát hành</label>
                         <input
                             type="date"
                             name="releaseDate"
@@ -119,7 +119,7 @@ const MovieForm: React.FC<MovieFormProps> = ({ movie, onSubmit, onCancel, isLoad
                         />
                     </div>
                     <div className="space-y-2 md:col-span-2">
-                        <label className="text-sm font-medium text-gray-400">Genres IDs (comma separated)</label>
+                        <label className="text-sm font-medium text-gray-400">Mã thể loại (cách nhau bởi dấu phẩy)</label>
                         <input
                             type="text"
                             value={formData.genresId?.join(", ") || ""}
@@ -129,7 +129,7 @@ const MovieForm: React.FC<MovieFormProps> = ({ movie, onSubmit, onCancel, isLoad
                         />
                     </div>
                     <div className="space-y-2 md:col-span-2">
-                        <label className="text-sm font-medium text-gray-400">Poster URL</label>
+                        <label className="text-sm font-medium text-gray-400">Đường dẫn Poster</label>
                         <input
                             type="text"
                             name="posterUrl"
@@ -139,7 +139,7 @@ const MovieForm: React.FC<MovieFormProps> = ({ movie, onSubmit, onCancel, isLoad
                         />
                     </div>
                     <div className="space-y-2 md:col-span-2">
-                        <label className="text-sm font-medium text-gray-400">Trailer URL (YouTube)</label>
+                        <label className="text-sm font-medium text-gray-400">Đường dẫn Trailer (YouTube/IMDb)</label>
                         <input
                             type="text"
                             name="trailerUrl"
@@ -149,20 +149,31 @@ const MovieForm: React.FC<MovieFormProps> = ({ movie, onSubmit, onCancel, isLoad
                         />
                     </div>
 
+                    <div className="space-y-2 flex items-center gap-3">
+                        <input
+                            type="checkbox"
+                            name="isVip"
+                            checked={formData.isVip || false}
+                            onChange={(e) => setFormData(prev => ({ ...prev, isVip: e.target.checked }))}
+                            className="w-5 h-5 accent-amber-400 rounded border-white/10"
+                        />
+                        <label className="text-sm font-medium text-amber-400 uppercase tracking-widest">Phim VIP</label>
+                    </div>
+
                     <div className="md:col-span-2 flex justify-end gap-3 mt-4">
                         <button
                             type="button"
                             onClick={onCancel}
                             className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-medium transition-all"
                         >
-                            Cancel
+                            Hủy
                         </button>
                         <button
                             type="submit"
                             disabled={isLoading}
                             className="px-8 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold transition-all shadow-lg shadow-cyan-500/20 disabled:opacity-50"
                         >
-                            {isLoading ? "Saving..." : movie ? "Update Movie" : "Add Movie"}
+                            {isLoading ? "Đang lưu..." : movie ? "Cập nhật phim" : "Thêm phim"}
                         </button>
                     </div>
                 </form>

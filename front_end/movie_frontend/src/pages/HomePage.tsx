@@ -17,8 +17,8 @@ export default function HomePage() {
         <div>
             <Hero movie={featured} isLoading={isLoading} error={error?.message} />
             <div className="mx-auto max-w-5xl px-6 py-10">
-                <h1 className="text-3xl font-black tracking-tight">Home</h1>
-                <p className="mt-2 text-outline">Public page. Add your content here.</p>
+                <h1 className="text-3xl font-black tracking-tight">Trang chủ</h1>
+                <p className="mt-2 text-outline">Trang cộng khai. Nội dung của bạn sẽ hiển thị tại đây.</p>
             </div>
             <div className="px-6 mt-auto">
                 <button

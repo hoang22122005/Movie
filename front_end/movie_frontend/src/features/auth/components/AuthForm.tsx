@@ -37,7 +37,7 @@ export default function AuthForm() {
                 window.google.accounts.id.initialize({
                     client_id: GOOGLE_CLIENT_ID,
                     callback: (response: any) => {
-                        toast("Google verification successful. Entering cinema...", "success");
+                        toast("Xác nhận Google thành công. Đang vào rạp phim...", "success");
                         googleLogin(response.credential);
                     },
                 });
@@ -69,10 +69,10 @@ export default function AuthForm() {
 
             <header className="mb-8">
                 <h2 className="text-2xl font-bold text-white mb-1">
-                    {isLogin ? "Welcome Back" : "Create Account"}
+                    {isLogin ? "Chào mừng trở lại" : "Tạo tài khoản"}
                 </h2>
                 <p className="text-outline text-sm">
-                    {isLogin ? "Please enter your details to sign in." : "Join the obsidian stage today."}
+                    {isLogin ? "Vui lòng nhập thông tin để đăng nhập." : "Gia nhập cộng đồng xem phim ngay hôm nay."}
                 </p>
             </header>
 
@@ -80,7 +80,7 @@ export default function AuthForm() {
                 {/* Identity Input */}
                 <div className="space-y-2">
                     <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-primary/80 ml-1">
-                        USERNAME
+                        TÊN ĐĂNG NHẬP
                     </label>
                     <div className="relative group">
                         <input
@@ -88,7 +88,7 @@ export default function AuthForm() {
                             value={formData.username}
                             onChange={(e) => handleInputChange(e, "username")}
                             className="w-full bg-surface-container/50 border border-white/10 rounded-xl py-3.5 pl-4 pr-4 text-white placeholder:text-outline/50 outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary/20"
-                            placeholder="Email or Username"
+                            placeholder="Email hoặc Tên đăng nhập"
                             required
                         />
                     </div>
@@ -105,7 +105,7 @@ export default function AuthForm() {
                                 value={formData.email}
                                 onChange={(e) => handleInputChange(e, "email")}
                                 className="w-full bg-surface-container/50 border border-white/10 rounded-xl py-3.5 pl-4 pr-4 text-white placeholder:text-outline/50 outline-none transition-all focus:border-primary focus:ring-1 focus:ring-primary/20"
-                                placeholder="Email address"
+                                placeholder="Địa chỉ email"
                                 required
                             />
                         </div>
@@ -116,7 +116,7 @@ export default function AuthForm() {
                 <div className="space-y-2">
                     <div className="flex justify-between items-center ml-1">
                         <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-primary/80">
-                            PASSWORD
+                            MẬT KHẨU
                         </label>
                     </div>
                     <div className="relative group">
@@ -147,12 +147,12 @@ export default function AuthForm() {
                     disabled={isSubmitting || isGoogleSubmitting}
                     className="w-full py-4 rounded-xl glossy-gradient text-surface font-black uppercase tracking-widest text-sm hover:scale-[1.02] active:scale-95 transition-all duration-300 shadow-lg shadow-primary/20 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
                 >
-                    {isSubmitting || isGoogleSubmitting ? "Processing..." : isLogin ? "Enter Cinema" : "Initialize Account"}
+                    {isSubmitting || isGoogleSubmitting ? "Đang xử lý..." : isLogin ? "Đăng nhập" : "Khởi tạo tài khoản"}
                 </button>
 
                 <div className="relative my-8">
                     <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/5"></div></div>
-                    <div className="relative flex justify-center text-[10px] font-bold uppercase tracking-widest"><span className="bg-surface px-4 text-outline/50">OR CONTINUE WITH</span></div>
+                    <div className="relative flex justify-center text-[10px] font-bold uppercase tracking-widest"><span className="bg-surface px-4 text-outline/50">HOẶC TIẾP TỤC VỚI</span></div>
                 </div>
 
                 <div className="w-full flex justify-center" ref={googleBtnRef}></div>
@@ -160,12 +160,12 @@ export default function AuthForm() {
 
             <div className="mt-8 pt-6 border-t border-white/5 text-center">
                 <p className="text-outline text-sm">
-                    {isLogin ? "New to the Obsidian Stage?" : "Already have access?"}
+                    {isLogin ? "Bạn mới tham gia?" : "Đã có tài khoản?"}
                     <button
                         onClick={toggleMode}
                         className="text-white font-bold ml-1 hover:text-primary transition-colors cursor-pointer"
                     >
-                        {isLogin ? "Create Account" : "Sign In"}
+                        {isLogin ? "Tạo tài khoản" : "Đăng nhập"}
                     </button>
                 </p>
             </div>

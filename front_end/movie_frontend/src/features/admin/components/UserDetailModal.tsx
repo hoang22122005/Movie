@@ -35,13 +35,13 @@ const UserDetailModal: React.FC<UserDetailModalProps> = ({ user, onClose }) => {
                 </div>
 
                 <div className="space-y-4 relative z-10">
-                    <DetailItem icon={<Mail className="w-5 h-5" />} label="Email Address" value={user.email} />
-                    <DetailItem icon={<Shield className="w-5 h-5" />} label="User ID" value={`#${user.userId}`} />
+                    <DetailItem icon={<Mail className="w-5 h-5" />} label="Địa chỉ Email" value={user.email} />
+                    <DetailItem icon={<Shield className="w-5 h-5" />} label="Mã người dùng" value={`#${user.userId}`} />
                     <div className="grid grid-cols-2 gap-4">
-                        <DetailItem icon={<Calendar className="w-5 h-5" />} label="Age" value={user.age?.toString() || "N/A"} />
-                        <DetailItem icon={<User className="w-5 h-5" />} label="Gender" value={user.gender || "N/A"} />
+                        <DetailItem icon={<Calendar className="w-5 h-5" />} label="Tuổi" value={user.age?.toString() || "N/A"} />
+                        <DetailItem icon={<User className="w-5 h-5" />} label="Giới tính" value={user.gender || "N/A"} />
                     </div>
-                    <DetailItem icon={<Briefcase className="w-5 h-5" />} label="Occupation" value={user.occupation || "N/A"} />
+                    <DetailItem icon={<Briefcase className="w-5 h-5" />} label="Nghề nghiệp" value={user.occupation || "N/A"} />
                 </div>
 
                 <div className="mt-8 flex justify-center">
@@ -49,7 +49,7 @@ const UserDetailModal: React.FC<UserDetailModalProps> = ({ user, onClose }) => {
                         onClick={onClose}
                         className="px-8 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white font-medium transition-all w-full"
                     >
-                        Close
+                        Đóng
                     </button>
                 </div>
             </div>

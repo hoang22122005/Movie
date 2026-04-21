@@ -43,9 +43,9 @@ export default function Hero({ movie, isLoading, error }: HeroProps) {
         if (!movie) return;
         try {
             await addToWatchlistMutation.mutateAsync(movie.movieId);
-            toast(`Added "${movie.title}" to your watchlist`, "success");
+            toast(`Đã thêm "${movie.title}" vào danh sách phát`, "success");
         } catch (err) {
-            toast("You have already added this movie or an error occurred", "error");
+            toast("Phim này đã có trong danh sách hoặc đã xảy ra lỗi", "error");
         }
     };
     // Chế biến dữ liệu thật từ Props

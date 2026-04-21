@@ -156,15 +156,15 @@ export default function WatchlistPage() {
                         <div className="w-24 h-24 rounded-full bg-neutral-900 border border-white/5 flex items-center justify-center mb-8 text-neutral-700">
                             <Heart size={48} strokeWidth={1} />
                         </div>
-                        <h3 className="text-3xl font-black text-white mb-4 uppercase tracking-tighter">Your watchlist is empty</h3>
+                        <h3 className="text-3xl font-black text-white mb-4 uppercase tracking-tighter">Danh sách phát đang trống</h3>
                         <p className="text-neutral-500 max-w-md mx-auto mb-10 font-medium">
-                            Looks like you haven't saved any movies yet. Start exploring our vast collection to build your library.
+                            Có vẻ như bạn chưa lưu bộ phim nào. Hãy bắt đầu khám phá bộ sưu tập khổng lồ của chúng tôi ngay.
                         </p>
                         <Link
                             to="/browse"
                             className="group flex items-center gap-3 bg-primary text-primary-dark px-8 py-4 rounded-2xl font-black uppercase text-sm tracking-widest hover:brightness-110 transition-all hover:shadow-[0_0_30px_rgba(212,168,83,0.4)]"
                         >
-                            Explore Movies
+                            Khám phá Phim ngay
                             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                         </Link>
                     </motion.div>

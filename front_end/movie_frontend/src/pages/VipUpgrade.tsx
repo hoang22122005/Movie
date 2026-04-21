@@ -17,22 +17,22 @@ export default function VipUpgrade() {
                 // Redirect to VNPay
                 window.location.href = response.data.data;
             } else {
-                toast("Failed to initiate payment", "error");
+                toast("Khởi tạo thanh toán thất bại", "error");
             }
         } catch (error) {
             console.error(error);
-            toast("An error occurred. Please try again.", "error");
+            toast("Có lỗi xảy ra. Vui lòng thử lại.", "error");
         } finally {
             setIsLoading(false);
         }
     };
 
     const features = [
-        "Access to UHD 4K Cinematic Content",
-        "Unlimited Streaming without Interruptions",
-        "Early Access to New Releases",
-        "Exclusive VIP-only Feature Discovery",
-        "Support the Obsidian Stage Evolution"
+        "Nội dung UHD 4K đặc sắc",
+        "Xem không giới hạn, không quảng cáo",
+        "Ưu tiên xem trước các phim mới",
+        "Khám phá tính năng đặc quyền VIP",
+        "Ủng hộ đội ngũ phát triển"
     ];
 
     return (
@@ -43,17 +43,17 @@ export default function VipUpgrade() {
                         <Crown className="text-primary" size={40} />
                     </div>
                     <h1 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter mb-4">
-                        Ascend to <span className="text-primary">VIP</span>
+                        Nâng cấp <span className="text-primary">VIP</span>
                     </h1>
                     <p className="text-neutral-500 text-lg max-w-xl mx-auto italic">
-                        The ultimate cinematic experience awaits. Unlock the obsidian vault and witness excellence.
+                        Trải nghiệm điện ảnh đỉnh cao đang chờ đón. Mở khóa kho tàng phim đặc sắc và tận hưởng sự khác biệt.
                     </p>
                 </header>
 
                 <div className="grid md:grid-cols-5 gap-8 bg-surface-light/30 border border-white/5 backdrop-blur-3xl rounded-[2.5rem] overflow-hidden">
                     <div className="md:col-span-3 p-10 md:p-16 border-r border-white/5">
                         <h2 className="text-2xl font-bold uppercase tracking-widest mb-10 flex items-center gap-3">
-                            <Star className="text-primary fill-primary" size={20} /> Prestige Benefits
+                            <Star className="text-primary fill-primary" size={20} /> Quyền lợi Đặc quyền
                         </h2>
                         <ul className="space-y-6">
                             {features.map((feature, idx) => (
@@ -69,20 +69,20 @@ export default function VipUpgrade() {
                         <div className="mt-16 flex items-center gap-6 p-6 bg-white/5 rounded-2xl border border-white/5">
                             <Shield className="text-emerald-500" size={32} />
                             <div>
-                                <h4 className="text-white font-bold uppercase text-xs tracking-widest mb-1">Secure Transaction</h4>
-                                <p className="text-neutral-500 text-xs">Powered by VNPay - Vietnam's Leading Payment Gateway</p>
+                                <h4 className="text-white font-bold uppercase text-xs tracking-widest mb-1">Giao dịch an toàn</h4>
+                                <p className="text-neutral-500 text-xs">Phát triển bởi VNPay - Cổng thanh toán hàng đầu Việt Nam</p>
                             </div>
                         </div>
                     </div>
 
                     <div className="md:col-span-2 p-10 md:p-16 bg-primary/5 flex flex-col justify-center text-center">
                         <div className="mb-10">
-                            <span className="text-neutral-400 text-sm font-black uppercase tracking-[0.3em]">Monthly Access</span>
+                            <span className="text-neutral-400 text-sm font-black uppercase tracking-[0.3em]">Gói hàng tháng</span>
                             <div className="flex items-center justify-center gap-1 mt-4">
                                 <span className="text-5xl font-black italic">50,000</span>
-                                <span className="text-2xl font-bold text-primary">VND</span>
+                                <span className="text-2xl font-bold text-primary">VNĐ</span>
                             </div>
-                            <p className="text-neutral-500 text-xs mt-4">Renews every 30 days. Cancel anytime.</p>
+                            <p className="text-neutral-500 text-xs mt-4">Gia hạn mỗi 30 ngày. Hủy bất kỳ lúc nào.</p>
                         </div>
 
                         <button
@@ -93,7 +93,7 @@ export default function VipUpgrade() {
                             {isLoading ? <Loader2 className="animate-spin" size={20} /> : (
                                 <>
                                     <Rocket size={20} className="group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />
-                                    Initialize VIP
+                                    Kích hoạt VIP ngay
                                 </>
                             )}
                         </button>
@@ -102,7 +102,7 @@ export default function VipUpgrade() {
                             onClick={() => navigate(-1)}
                             className="mt-6 text-neutral-600 hover:text-white text-xs font-black uppercase tracking-widest transition-colors"
                         >
-                            Back to Gallery
+                            Quay lại trang chủ
                         </button>
                     </div>
                 </div>

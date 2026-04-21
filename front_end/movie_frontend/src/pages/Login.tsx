@@ -21,7 +21,7 @@ export default function LoginPage() {
                         Aether Cinema
                     </h1>
                     <p className="text-outline text-xs tracking-[0.3em] uppercase font-medium">
-                        Digital Cinema Experience
+                        Trải nghiệm điện ảnh kỹ thuật số
                     </p>
                 </div>
 
@@ -47,7 +47,7 @@ export default function LoginPage() {
                     <div className="h-[2px] w-16 bg-primary/20"></div>
                     <div className="h-[2px] w-32 bg-primary/10"></div>
                 </div>
-                <p className="text-[10px] uppercase tracking-[0.3em] font-black text-primary mt-4">System Online</p>
+                <p className="text-[10px] uppercase tracking-[0.3em] font-black text-primary mt-4">Hệ thống sẵn sàng</p>
             </div>
         </div>
     );
