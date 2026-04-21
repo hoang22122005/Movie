@@ -98,8 +98,13 @@ export default function Navbar() {
 
             {/* Actions Bar - Perfect Alignment */}
             <div className="flex items-center gap-3">
-                {/* VIP Button */}
-                {!auth.user?.isVip && (
+                {/* VIP Status/Button */}
+                {auth.user?.isVip ? (
+                    <div className="hidden md:flex items-center gap-2 px-5 h-11 rounded-xl bg-gradient-to-r from-amber-500/20 to-yellow-500/20 border border-yellow-500/30 text-yellow-500 font-black uppercase text-[11px] tracking-widest shadow-[0_0_15px_rgba(251,191,36,0.1)]">
+                        <Crown size={14} fill="currentColor" className="animate-pulse" />
+                        ROYAL VIP
+                    </div>
+                ) : (
                     <button
                         onClick={() => navigate("/vip-upgrade")}
                         className="hidden md:flex items-center gap-2 px-5 h-11 rounded-xl bg-primary text-black font-bold uppercase text-[11px] tracking-widest hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(212,168,83,0.3)]"

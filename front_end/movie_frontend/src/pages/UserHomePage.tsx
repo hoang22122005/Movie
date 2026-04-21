@@ -8,6 +8,7 @@ import TopRatedSection from '../features/movies/components/TopRatedSection';
 import { usePublicMovies, useRecommendations, useWatchedList } from "../features/movies/hooks/useMovies";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { AnimatePresence } from "motion/react";
 import { MovieOverlay } from "../features/movies/components/MoiveOverlay.tsx";
@@ -15,6 +16,12 @@ import type { MovieResponse } from "../types";
 
 export default function App() {
     const navigate = useNavigate();
+    const queryClient = useQueryClient();
+
+    // Tự động làm mới danh sách phim đã xem khi quay lại trang chủ
+    useEffect(() => {
+        queryClient.invalidateQueries({ queryKey: ["movies", "watched"] });
+    }, [queryClient]);
 
     // Fetch Featured Movies (Hero)
     const { data: featuredData, isLoading: isLoadingHero, error: errorHero } = usePublicMovies({ page: 0, size: 10 });

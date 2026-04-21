@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { User as UserIcon, Mail, Shield, Loader2, LogOut, Camera, Settings, Bell, CreditCard, Briefcase, Users, Link as LinkIcon } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { useProfile, useUpdateProfile, useChangePassword } from "../features/user-profile/hooks/useUser";
+import { useWatchlist } from "../features/movies/hooks/useWatchlist";
 import { useToast } from "../context/ToastContext";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +17,7 @@ export default function ProfilePage() {
 
     // Profile Data
     const { data: profile, isLoading } = useProfile();
+    const { data: watchlistData } = useWatchlist({ page: 0, size: 1 });
 
     // Form states
     const [profileAge, setProfileAge] = useState<number>(0);
@@ -118,7 +120,9 @@ export default function ProfilePage() {
                             transition={{ delay: 0.1 }}
                         >
                             <div className="flex items-center gap-3 mb-2">
-                                <span className="px-3 py-1 bg-primary text-black text-[10px] font-black uppercase tracking-widest rounded-full">{profile?.role} Member</span>
+                                <span className={`px-3 py-1 ${profile?.isVip ? 'bg-gradient-to-r from-amber-500 to-yellow-400 text-black' : 'bg-primary text-black'} text-[10px] font-black uppercase tracking-widest rounded-full`}>
+                                    {profile?.isVip ? 'VIP Member' : 'Standard Member'}
+                                </span>
                                 <span className="text-outline text-[10px] uppercase tracking-[0.2em] font-bold">Identity Confirmed</span>
                             </div>
                             <h1 className="text-6xl md:text-8xl font-black italic tracking-tighter uppercase mb-6 leading-none">
@@ -158,10 +162,10 @@ export default function ProfilePage() {
                             transition={{ delay: 0.2 }}
                             className="p-10 rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-xl group hover:border-primary/50 transition-colors"
                         >
-                            <h3 className="text-neutral-500 text-xs font-bold uppercase tracking-[0.2em] mb-10">Consumption Hub</h3>
+                            <h3 className="text-neutral-500 text-xs font-bold uppercase tracking-[0.2em] mb-10">Cinema Experience</h3>
                             <div className="flex items-end gap-1">
-                                <span className="text-7xl font-black italic leading-none">42</span>
-                                <span className="text-xs font-bold text-primary uppercase pb-2">Movies Watched</span>
+                                <span className="text-7xl font-black italic leading-none">{watchlistData?.totalElements || 0}</span>
+                                <span className="text-xs font-bold text-primary uppercase pb-2">Movies in List</span>
                             </div>
                         </motion.div>
 
@@ -171,7 +175,7 @@ export default function ProfilePage() {
                             transition={{ delay: 0.3 }}
                             className="p-10 rounded-[2.5rem] bg-white/5 border border-white/10 backdrop-blur-xl group hover:border-primary/50 transition-colors"
                         >
-                            <h3 className="text-neutral-500 text-xs font-bold uppercase tracking-[0.2em] mb-10">Critical Feedback</h3>
+                            <h3 className="text-neutral-500 text-xs font-bold uppercase tracking-[0.2em] mb-10">Community Voice</h3>
                             <div className="flex items-end gap-1">
                                 <span className="text-7xl font-black italic leading-none">12</span>
                                 <span className="text-xs font-bold text-primary uppercase pb-2">Comments Shared</span>
@@ -251,11 +255,18 @@ export default function ProfilePage() {
                             className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10"
                         >
                             <div className="flex items-center gap-4 mb-6">
-                                <CreditCard className="text-neutral-500" />
+                                <CreditCard className={profile?.isVip ? "text-amber-500" : "text-neutral-500"} />
                                 <h3 className="text-xs font-bold uppercase tracking-[0.2em]">Member Tier</h3>
                             </div>
-                            <p className="text-2xl font-black italic mb-2">ACCESS LEVEL <span className="text-primary">ULTRA</span></p>
-                            <p className="text-[10px] text-outline uppercase font-bold tracking-widest">Status: Active</p>
+                            <p className="text-2xl font-black italic mb-2">ACCESS LEVEL <span className={profile?.isVip ? "text-amber-500" : "text-primary"}>{profile?.isVip ? "ROYAL VIP" : "STANDARD"}</span></p>
+                            <p className="text-[10px] text-outline uppercase font-bold tracking-widest">
+                                Status: {profile?.isVip ? "Active (Ultra)" : "Active (Free)"}
+                            </p>
+                            {profile?.isVip && profile?.vipExpiration && (
+                                <p className="mt-4 text-[9px] text-neutral-500 font-bold uppercase tracking-wider">
+                                    Expires: {new Date(profile.vipExpiration).toLocaleDateString()}
+                                </p>
+                            )}
                         </motion.div>
                     </div>
                 </div>
